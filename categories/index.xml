@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Toby Blog</title>
+    <link>https://ah-toby.github.io/categories/</link>
+    <description>Recent content in Categories on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <lastBuildDate>Fri, 29 May 2020 14:43:00 +0000</lastBuildDate>
+    <atom:link href="https://ah-toby.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python</title>
+      <link>https://ah-toby.github.io/categories/python/</link>
+      <pubDate>Fri, 29 May 2020 14:43:00 +0000</pubDate>
+      <guid>https://ah-toby.github.io/categories/python/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-basics.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-basics.jpg" />
+    
+
+    
+    <meta name="title" content="Python基础知识(七)" />
+    <meta property="og:title" content="Python基础知识(七)" />
+    <meta property="twitter:title" content="Python基础知识(七)" />
+    
+
+    
+    <meta name="description" content="介绍python的打印输出，以及如何使用格式化输出">
+    <meta property="og:description" content="介绍python的打印输出，以及如何使用格式化输出" />
+    <meta property="twitter:description" content="介绍python的打印输出，以及如何使用格式化输出" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python基础知识(七) | Toby Wong的博客</title>
+
+    <link rel="canonical" href="/PythonBase/7/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">归档</a></li>
+                    
+                        <li><a href="/about//">关于我</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-basics.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                    </div>
+                    <h1>Python基础知识(七)</h1>
+                    <h2 class="subheading">输出</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Friday, May 29, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一什么是输出">一.什么是输出？</h2>
+<p>输出其实就是一个由一系列动作产出结果的过程，在程序中是指在我们运行程序时在特定位置输出程序运行的结果这一过程。</p>
+<h2 id="二python输出">二.python输出</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(内容)
+</span></span></code></pre></div><h2 id="三格式化输出旧版本">三.格式化输出(旧版本)</h2>
+<p>所谓的格式化输出就是按照自己的规定输出</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span> <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;xxxx</span><span style="color:#f1fa8c">%d</span><span style="color:#f1fa8c">xxxxxx</span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">%</span>(变量1，变量2))
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;我今年18岁&#34;</span>)
+</span></span><span style="display:flex;"><span>age <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">18</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;我今年</span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">岁&#34;</span><span style="color:#ff79c6">%</span>age)
+</span></span></code></pre></div><p>两行代码对比明显可知第三行的输出是按照我想的结果输出的</p>
+<h3 id="1常用的格式符号">1.常用的格式符号</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">格式符号</th>
+<th style="text-align:center">转换</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">%c</td>
+<td style="text-align:center">字符</td>
+</tr>
+<tr>
+<td style="text-align:center">%s</td>
+<td style="text-align:center">字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">%d</td>
+<td style="text-align:center">有符号十进制整数</td>
+</tr>
+<tr>
+<td style="text-align:center">%u</td>
+<td style="text-align:center">无符号十进制整数</td>
+</tr>
+<tr>
+<td style="text-align:center">%o</td>
+<td style="text-align:center">八进制整数</td>
+</tr>
+<tr>
+<td style="text-align:center">%x</td>
+<td style="text-align:center">十六进制整数（小写字母0x）</td>
+</tr>
+<tr>
+<td style="text-align:center">%X</td>
+<td style="text-align:center">十六进制整数（大写字母0X）</td>
+</tr>
+<tr>
+<td style="text-align:center">%f</td>
+<td style="text-align:center">浮点数</td>
+</tr>
+<tr>
+<td style="text-align:center">%e</td>
+<td style="text-align:center">科学计数法（小写&rsquo;e&rsquo;）</td>
+</tr>
+<tr>
+<td style="text-align:center">%E</td>
+<td style="text-align:center">科学计数法（大写“E”）</td>
+</tr>
+<tr>
+<td style="text-align:center">%g</td>
+<td style="text-align:center">％f和％e 的简写</td>
+</tr>
+<tr>
+<td style="text-align:center">%G</td>
+<td style="text-align:center">％f和％E的简写</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意:</strong></p>
+<p>不同数据需要不同的占位符</p>
+<p>%u无符号整型的作用：去除正负号*</p>
+<p>%s和%r可以打印世间万物但是%r一般用在软件测试中</p>
+</blockquote>
+<h3 id="2换行输出">2.换行输出</h3>
+<p>在输出的时候，如果有<code>\n</code>那么，此时<code>\n</code>后的内容会在另外一行显示</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;1234567890-------&#34;</span>) <span style="color:#6272a4"># 会在一行显示</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;1234567890</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">-------&#34;</span>) <span style="color:#6272a4"># 一行显示1234567890，另外一行显示-------</span>
+</span></span></code></pre></div><h2 id="四格式化输出新版本">四.格式化输出(新版本)</h2>
+<h3 id="1使用f-strings常用">1.使用f-strings(常用)</h3>
+<p>使用 f-strings 是从Python 3.6 开始引入的一种字符串格式化方法，可以在字符串中直接插入变量值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;my name is </span><span style="color:#f1fa8c">{</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span></code></pre></div><h3 id="2使用-strformat_map和vars">2.使用 str.format_map和vars</h3>
+<p>使用 <code>str.format_map()</code> 方法和 <code>vars()</code> 函数来格式化输出，将变量作为字典键传递给 <code>format_map()</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;my name is </span><span style="color:#f1fa8c">{name}</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">.</span>format_map(<span style="color:#8be9fd;font-style:italic">vars</span>()))
+</span></span></code></pre></div><h3 id="3format方法">3.format方法</h3>
+<p>使用花括号 <code>{}</code> 作为占位符，在字符串中指定要插入的值。然后，调用字符串的 <code>format()</code> 方法并传递要插入的值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;my name is </span><span style="color:#f1fa8c">{}</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">.</span>format(name))
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/6/" data-toggle="tooltip" data-placement="top" title="Python基础知识(六)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/8/" data-toggle="tooltip" data-placement="top" title="Python基础知识(八)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>
