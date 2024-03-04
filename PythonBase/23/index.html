@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-data-types.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-data-types.jpg" />
+    
+
+    
+    <meta name="title" content="Python基本数据类型(三)" />
+    <meta property="og:title" content="Python基本数据类型(三)" />
+    <meta property="twitter:title" content="Python基本数据类型(三)" />
+    
+
+    
+    <meta name="description" content="介绍Python中的列表以及其常用的操作函数">
+    <meta property="og:description" content="介绍Python中的列表以及其常用的操作函数" />
+    <meta property="twitter:description" content="介绍Python中的列表以及其常用的操作函数" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python基本数据类型(三) | Toby Wong的博客</title>
+
+    <link rel="canonical" href="/PythonBase/23/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">归档</a></li>
+                    
+                        <li><a href="/about//">关于我</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-data-types.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                    </div>
+                    <h1>Python基本数据类型(三)</h1>
+                    <h2 class="subheading">列表-list</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Wednesday, June 3, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一什么是列表">一.什么是列表</h2>
+<p><strong>作用:</strong> 列表是用来存储大量数据的容器</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[value1,value2,value3,<span style="color:#ff79c6">...</span>]
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>python列表中存储的数据可以是不同的数据类型</p>
+</blockquote>
+<h2 id="二列表的常见操作">二.列表的常见操作</h2>
+<h3 id="1增加元素">1.增加元素</h3>
+<h4 id="11append">1.1.append</h4>
+<p><strong>作用:</strong> 在列表的末尾添加元素</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>append(values)
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4">#定义变量A，默认有3个元素</span>
+</span></span><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;xiaoWang&#39;</span>,<span style="color:#f1fa8c">&#39;xiaoZhang&#39;</span>,<span style="color:#f1fa8c">&#39;xiaoHua&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;-----添加之前，列表A的数据-----&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> A:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#提示、并添加元素</span>
+</span></span><span style="display:flex;"><span>temp <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#39;请输入要添加的学生姓名:&#39;</span>)
+</span></span><span style="display:flex;"><span>A<span style="color:#ff79c6">.</span>append(temp)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;-----添加之后，列表A的数据-----&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> A:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">-----</span>添加之前，列表A的数据<span style="color:#ff79c6">-----</span>
+</span></span><span style="display:flex;"><span>xiaoWang
+</span></span><span style="display:flex;"><span>xiaoZhang
+</span></span><span style="display:flex;"><span>xiaoHua
+</span></span><span style="display:flex;"><span>请输入要添加的学生姓名:哈哈
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-----</span>添加之后，列表A的数据<span style="color:#ff79c6">-----</span>
+</span></span><span style="display:flex;"><span>xiaoWang
+</span></span><span style="display:flex;"><span>xiaoZhang
+</span></span><span style="display:flex;"><span>xiaoHua
+</span></span><span style="display:flex;"><span>哈哈
+</span></span></code></pre></div><h4 id="12insert">1.2.insert</h4>
+<p><strong>作用:</strong> 向列表中指定位置插入数据</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>insert(index, <span style="color:#8be9fd;font-style:italic">object</span>) <span style="color:#6272a4"># 在指定位置index前插入元素object</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>insert(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
+</span></span></code></pre></div><h4 id="13extend">1.3.extend</h4>
+<p><strong>作用:</strong> 通过extend可以将另一个集合中的元素逐一添加到列表中</p>
+<p><strong>格式：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>myslist<span style="color:#ff79c6">.</span>extend(index,<span style="color:#8be9fd;font-style:italic">list</span>) <span style="color:#6272a4"># 在指定位置index前插入列表</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> b <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>append(b)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, [<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>extend(b)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, [<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>], <span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">4</span>]
+</span></span></code></pre></div><h3 id="2删除元素">2.删除元素</h3>
+<h4 id="21del">2.1.del</h4>
+<p><strong>作用:</strong> 根据下标进行删除</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">del</span> mylist(index)  <span style="color:#6272a4"># 删除mylist中index位置的元素</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>movieName <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;加勒比海盗&#39;</span>,<span style="color:#f1fa8c">&#39;骇客帝国&#39;</span>,<span style="color:#f1fa8c">&#39;第一滴血&#39;</span>,<span style="color:#f1fa8c">&#39;指环王&#39;</span>,<span style="color:#f1fa8c">&#39;霍比特人&#39;</span>,<span style="color:#f1fa8c">&#39;速度与激情&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;------删除之前------&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> movieName:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">del</span> movieName[<span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;------删除之后------&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> movieName:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">------</span>删除之前<span style="color:#ff79c6">------</span>
+</span></span><span style="display:flex;"><span>加勒比海盗
+</span></span><span style="display:flex;"><span>骇客帝国
+</span></span><span style="display:flex;"><span>第一滴血
+</span></span><span style="display:flex;"><span>指环王
+</span></span><span style="display:flex;"><span>霍比特人
+</span></span><span style="display:flex;"><span>速度与激情
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">------</span>删除之后<span style="color:#ff79c6">------</span>
+</span></span><span style="display:flex;"><span>加勒比海盗
+</span></span><span style="display:flex;"><span>骇客帝国
+</span></span><span style="display:flex;"><span>指环王
+</span></span><span style="display:flex;"><span>霍比特人
+</span></span><span style="display:flex;"><span>速度与激情
+</span></span></code></pre></div><h4 id="22pop">2.2.pop</h4>
+<p><strong>作用:</strong> 删除最后一个元素(默认删除最后一个元素)</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">list</span><span style="color:#ff79c6">.</span>pop()
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>movieName <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;加勒比海盗&#39;</span>,<span style="color:#f1fa8c">&#39;骇客帝国&#39;</span>,<span style="color:#f1fa8c">&#39;第一滴血&#39;</span>,<span style="color:#f1fa8c">&#39;指环王&#39;</span>,<span style="color:#f1fa8c">&#39;霍比特人&#39;</span>,<span style="color:#f1fa8c">&#39;速度与激情&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;------删除之前------&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> movieName:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>movieName<span style="color:#ff79c6">.</span>pop()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;------删除之后------&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> movieName:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">------</span>删除之前<span style="color:#ff79c6">------</span>
+</span></span><span style="display:flex;"><span>加勒比海盗
+</span></span><span style="display:flex;"><span>骇客帝国
+</span></span><span style="display:flex;"><span>第一滴血
+</span></span><span style="display:flex;"><span>指环王
+</span></span><span style="display:flex;"><span>霍比特人
+</span></span><span style="display:flex;"><span>速度与激情
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">------</span>删除之后<span style="color:#ff79c6">------</span>
+</span></span><span style="display:flex;"><span>加勒比海盗
+</span></span><span style="display:flex;"><span>骇客帝国
+</span></span><span style="display:flex;"><span>第一滴血
+</span></span><span style="display:flex;"><span>指环王
+</span></span><span style="display:flex;"><span>霍比特人
+</span></span></code></pre></div><h4 id="23remove">2.3.remove</h4>
+<p><strong>作用:</strong> 根据元素的值进行删除</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>remove(value)  <span style="color:#6272a4"># value 是mylist中的值</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>movieName <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;加勒比海盗&#39;</span>,<span style="color:#f1fa8c">&#39;骇客帝国&#39;</span>,<span style="color:#f1fa8c">&#39;第一滴血&#39;</span>,<span style="color:#f1fa8c">&#39;指环王&#39;</span>,<span style="color:#f1fa8c">&#39;霍比特人&#39;</span>,<span style="color:#f1fa8c">&#39;速度与激情&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;------删除之前------&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> movieName:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>movieName<span style="color:#ff79c6">.</span>remove(<span style="color:#f1fa8c">&#39;指环王&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;------删除之后------&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> movieName:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">------</span>删除之前<span style="color:#ff79c6">------</span>
+</span></span><span style="display:flex;"><span>加勒比海盗
+</span></span><span style="display:flex;"><span>骇客帝国
+</span></span><span style="display:flex;"><span>第一滴血
+</span></span><span style="display:flex;"><span>指环王
+</span></span><span style="display:flex;"><span>霍比特人
+</span></span><span style="display:flex;"><span>速度与激情
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">------</span>删除之后<span style="color:#ff79c6">------</span>
+</span></span><span style="display:flex;"><span>加勒比海盗
+</span></span><span style="display:flex;"><span>骇客帝国
+</span></span><span style="display:flex;"><span>第一滴血
+</span></span><span style="display:flex;"><span>霍比特人
+</span></span><span style="display:flex;"><span>速度与激情
+</span></span></code></pre></div><h3 id="3修改元素">3.修改元素</h3>
+<p>修改元素的时候，要通过下标来确定要修改的是哪个元素，然后才能进行修改</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist[index] <span style="color:#ff79c6">=</span> newValue
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 定义变量A，默认有3个元素</span>
+</span></span><span style="display:flex;"><span>A <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;xiaoWang&#39;</span>, <span style="color:#f1fa8c">&#39;xiaoZhang&#39;</span>, <span style="color:#f1fa8c">&#39;xiaoHua&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;-----修改之前，列表A的数据-----&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> A:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 修改元素</span>
+</span></span><span style="display:flex;"><span>A[<span style="color:#bd93f9">1</span>] <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;xiaoLu&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;-----修改之后，列表A的数据-----&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">for</span> tempName <span style="color:#ff79c6">in</span> A:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(tempName)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">-----</span>修改之前，列表A的数据<span style="color:#ff79c6">-----</span>
+</span></span><span style="display:flex;"><span>xiaoWang
+</span></span><span style="display:flex;"><span>xiaoZhang
+</span></span><span style="display:flex;"><span>xiaoHua
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">-----</span>修改之后，列表A的数据<span style="color:#ff79c6">-----</span>
+</span></span><span style="display:flex;"><span>xiaoWang
+</span></span><span style="display:flex;"><span>xiaoLu
+</span></span><span style="display:flex;"><span>xiaoHua
+</span></span></code></pre></div><h3 id="4查看元素">4.查看元素</h3>
+<h4 id="41innot-in">4.1.in|not in</h4>
+<p>python中查找的常用方法为：</p>
+<ul>
+<li>in(存在), 如果存在那么结果为true, 否则为false</li>
+<li>not in(不存在), 如果不存在那么结果为true, 否则false</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4">#待查找的列表</span>
+</span></span><span style="display:flex;"><span>nameList <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;xiaoWang&#39;</span>,<span style="color:#f1fa8c">&#39;xiaoZhang&#39;</span>,<span style="color:#f1fa8c">&#39;xiaoHua&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#获取用户要查找的名字</span>
+</span></span><span style="display:flex;"><span>findName <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">input</span>(<span style="color:#f1fa8c">&#39;请输入要查找的姓名:&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4">#查找是否存在</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> findName <span style="color:#ff79c6">in</span> nameList:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;在字典中找到了相同的名字&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#39;没有找到&#39;</span>)
+</span></span></code></pre></div><p>运行结果1:(找到)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>请输入要查找的姓名:xiaoWang
+</span></span><span style="display:flex;"><span>在字典中找到了相同的名字
+</span></span></code></pre></div><p>运行结果2：(没有找到)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>请输入要查找的姓名:xiaoli
+</span></span><span style="display:flex;"><span>没有找到
+</span></span></code></pre></div><p><strong>说明:</strong></p>
+<blockquote>
+<p>in的方法只要会用了，那么not in也是同样的用法，只不过not in判断的是不存在</p>
+</blockquote>
+<h4 id="42indexcount">4.2.index,count</h4>
+<p>index和count与字符串中的用法相同</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;a&#39;</span>, <span style="color:#f1fa8c">&#39;b&#39;</span>, <span style="color:#f1fa8c">&#39;c&#39;</span>, <span style="color:#f1fa8c">&#39;a&#39;</span>, <span style="color:#f1fa8c">&#39;b&#39;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>index(<span style="color:#f1fa8c">&#39;a&#39;</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">3</span>) <span style="color:#6272a4"># 注意是左闭右开区间</span>
+</span></span><span style="display:flex;"><span>Traceback (most recent call last):
+</span></span><span style="display:flex;"><span>  File <span style="color:#f1fa8c">&#34;&lt;stdin&gt;&#34;</span>, line <span style="color:#bd93f9">1</span>, <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">&lt;</span>module<span style="color:#ff79c6">&gt;</span>
+</span></span><span style="display:flex;"><span>ValueError: <span style="color:#f1fa8c">&#39;a&#39;</span> <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">list</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>index(<span style="color:#f1fa8c">&#39;a&#39;</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>count(<span style="color:#f1fa8c">&#39;b&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a<span style="color:#ff79c6">.</span>count(<span style="color:#f1fa8c">&#39;d&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">0</span>
+</span></span></code></pre></div><h3 id="5排序">5.排序</h3>
+<h4 id="51sortreverse">5.1.sort,reverse</h4>
+<p>对列表元素进行排序</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>sort(reverse<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>sort：默认正序</p>
+<p>reverse=True：逆序</p>
+</blockquote>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/22/" data-toggle="tooltip" data-placement="top" title="Python基本数据类型(二)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/24/" data-toggle="tooltip" data-placement="top" title="Python基本数据类型(四)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-syntax.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-syntax.jpg" />
+    
+
+    
+    <meta name="title" content="Python基本语法(五)" />
+    <meta property="og:title" content="Python基本语法(五)" />
+    <meta property="twitter:title" content="Python基本语法(五)" />
+    
+
+    
+    <meta name="description" content="介绍Python中关系和逻辑运算符的种类,以及两种运算符在条件判断语句中的用法和作用">
+    <meta property="og:description" content="介绍Python中关系和逻辑运算符的种类,以及两种运算符在条件判断语句中的用法和作用" />
+    <meta property="twitter:description" content="介绍Python中关系和逻辑运算符的种类,以及两种运算符在条件判断语句中的用法和作用" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python基本语法(五) | Toby Wong的博客</title>
+
+    <link rel="canonical" href="/PythonBase/15/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">归档</a></li>
+                    
+                        <li><a href="/about//">关于我</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-syntax.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                    </div>
+                    <h1>Python基本语法(五)</h1>
+                    <h2 class="subheading">关系|逻辑运算符</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Monday, June 1, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一关系运算符">一.关系运算符</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">运算符</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">==</td>
+<td style="text-align:left">检查两个操作数的值是否相等，如果是则条件变为真。</td>
+<td style="text-align:left">如a=3,b=3，则（a == b) 为 True</td>
+</tr>
+<tr>
+<td style="text-align:left">!=</td>
+<td style="text-align:left">检查两个操作数的值是否相等，如果值不相等，则条件变为真。</td>
+<td style="text-align:left">如a=1,b=3，则(a != b) 为 True</td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;</td>
+<td style="text-align:left">检查左操作数的值是否大于右操作数的值，如果是，则条件成立。</td>
+<td style="text-align:left">如a=7,b=3，则(a &gt; b) 为 True</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;</td>
+<td style="text-align:left">检查左操作数的值是否小于右操作数的值，如果是，则条件成立。</td>
+<td style="text-align:left">如a=7,b=3，则(a &lt; b) 为 False</td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;=</td>
+<td style="text-align:left">检查左操作数的值是否大于或等于右操作数的值，如果是，则条件成立。</td>
+<td style="text-align:left">如a=3,b=3，则(a &gt;= b) 为 True</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;=</td>
+<td style="text-align:left">检查左操作数的值是否小于或等于右操作数的值，如果是，则条件成立。</td>
+<td style="text-align:left">如a=3,b=3，则(a &lt;= b) 为 True</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4">## 关系运算符</span>
+</span></span><span style="display:flex;"><span>... 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># == 等于：表示左右两个操作数是否相等，如果相等则整个表达式的值为 True；不相等则为False</span>
+</span></span><span style="display:flex;"><span>... <span style="color:#8be9fd;font-style:italic">num1</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">15</span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#8be9fd;font-style:italic">num2</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">20</span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; print<span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">num1</span> <span style="color:#ff79c6">==</span> num2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>False
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># != 不等于</span>
+</span></span><span style="display:flex;"><span>... print<span style="color:#ff79c6">(</span>num1 !<span style="color:#ff79c6">=</span> num2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>True
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># &gt; 大于</span>
+</span></span><span style="display:flex;"><span>... print<span style="color:#ff79c6">(</span>num1 &gt; num2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>False
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># &lt; 小于</span>
+</span></span><span style="display:flex;"><span>... print<span style="color:#ff79c6">(</span>num1 &lt; num2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>True
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># &gt;= 大于等于: num1 大于 或者 等于 num2 ，条件都成立</span>
+</span></span><span style="display:flex;"><span>... print<span style="color:#ff79c6">(</span>num1 &gt;<span style="color:#ff79c6">=</span> num2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>False
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># &lt;= 小于等于： num1 小于 或者 等于 num2 ，条件都成立</span>
+</span></span><span style="display:flex;"><span>... print<span style="color:#ff79c6">(</span>num1 &lt;<span style="color:#ff79c6">=</span> num2<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>True
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#ff79c6">if</span> num1 &gt;<span style="color:#ff79c6">=</span> num2:
+</span></span><span style="display:flex;"><span>...     print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;条件成立！&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>... 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt;
+</span></span></code></pre></div><h2 id="二逻辑运算符">二.逻辑运算符</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">运算符</th>
+<th>逻辑表达式</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">and</td>
+<td>x and y</td>
+<td style="text-align:left">布尔&quot;与&quot;：如果 x 为 False，x and y 返回 False，否则它返回 y 的值。</td>
+<td style="text-align:left">True and False， 返回 False。</td>
+</tr>
+<tr>
+<td style="text-align:left">or</td>
+<td>x or y</td>
+<td style="text-align:left">布尔&quot;或&quot;：如果 x 是 True，它返回 True，否则它返回 y 的值。</td>
+<td style="text-align:left">False or True， 返回 True。</td>
+</tr>
+<tr>
+<td style="text-align:left">not</td>
+<td>not x</td>
+<td style="text-align:left">布尔&quot;非&quot;：如果 x 为 True，返回 False 。如果 x 为 False，它返回 True。</td>
+<td style="text-align:left">not True 返回 False, not False 返回 True</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4">## 逻辑运算符</span>
+</span></span><span style="display:flex;"><span>... 
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># and : 左右表达式都为True，整个表达式结果才为 True</span>
+</span></span><span style="display:flex;"><span>... <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">1</span> <span style="color:#ff79c6">==</span> 1<span style="color:#ff79c6">)</span> and <span style="color:#ff79c6">(</span><span style="color:#bd93f9">10</span> &gt; 3<span style="color:#ff79c6">)</span>:
+</span></span><span style="display:flex;"><span>...     print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;条件成立！&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>... 
+</span></span><span style="display:flex;"><span>条件成立！
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># or : 左右表达式有一个为True，整个表达式结果就为 True</span>
+</span></span><span style="display:flex;"><span>... <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">1</span> <span style="color:#ff79c6">==</span> 2<span style="color:#ff79c6">)</span> or <span style="color:#ff79c6">(</span><span style="color:#bd93f9">10</span> &gt; 3<span style="color:#ff79c6">)</span>:
+</span></span><span style="display:flex;"><span>...     print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;条件成立！&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>... 
+</span></span><span style="display:flex;"><span>条件成立！
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt; <span style="color:#6272a4"># not：将右边表达式的逻辑结果取反，Ture变为False，False变为True</span>
+</span></span><span style="display:flex;"><span>... <span style="color:#ff79c6">if</span> not <span style="color:#ff79c6">(</span><span style="color:#8be9fd;font-style:italic">1</span> <span style="color:#ff79c6">==</span> 2<span style="color:#ff79c6">)</span>:
+</span></span><span style="display:flex;"><span>...     print<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;条件成立！&#34;</span><span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>... 
+</span></span><span style="display:flex;"><span>条件成立！
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt;&gt;&gt;
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/14/" data-toggle="tooltip" data-placement="top" title="Python基本语法(四)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/16/" data-toggle="tooltip" data-placement="top" title="Python基本语法(六)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>
