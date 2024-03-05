@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-function.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-function.jpg" />
+    
+
+    
+    <meta name="title" content="Python函数(七)" />
+    <meta property="og:title" content="Python函数(七)" />
+    <meta property="twitter:title" content="Python函数(七)" />
+    
+
+    
+    <meta name="description" content="介绍Python中函数的某些特殊化处理方法，如拆包，以及如何交换变量值">
+    <meta property="og:description" content="介绍Python中函数的某些特殊化处理方法，如拆包，以及如何交换变量值" />
+    <meta property="twitter:description" content="介绍Python中函数的某些特殊化处理方法，如拆包，以及如何交换变量值" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python函数(七) | Toby Wong的博客</title>
+
+    <link rel="canonical" href="/PythonBase/33/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">归档</a></li>
+                    
+                        <li><a href="/about//">关于我</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-function.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                    </div>
+                    <h1>Python函数(七)</h1>
+                    <h2 class="subheading">函数的特殊化处理</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Monday, June 8, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一拆包">一.拆包</h2>
+<p><strong>意义:</strong> 所谓的拆包就是将python特殊结构的数据直接分开存储的过程</p>
+<p><strong>格式:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>变量1, 变量2,<span style="color:#ff79c6">...</span>变量n <span style="color:#ff79c6">=</span> 特殊结构数据
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 直接对函数的返回值进行拆包</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_my_info</span>():
+</span></span><span style="display:flex;"><span>    high <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">178</span>
+</span></span><span style="display:flex;"><span>    weight <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">100</span>
+</span></span><span style="display:flex;"><span>    age <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">18</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">return</span> high, weight, age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>my_high, my_weight, my_age <span style="color:#ff79c6">=</span> get_my_info()
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(my_high)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(my_weight)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(my_age)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#bd93f9">178</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">100</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">18</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>1.需要拆的数据的个数要与变量的个数相同，否则程序会异常</p>
+<p>2.除了对元组拆包之外，还可以对列表、字典等拆包</p>
+<p>3.字典拆包取出来的是key不是value</p>
+</blockquote>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>  In [<span style="color:#bd93f9">17</span>]: a, b <span style="color:#ff79c6">=</span> (<span style="color:#bd93f9">11</span>, <span style="color:#bd93f9">22</span>)
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">18</span>]: a
+</span></span><span style="display:flex;"><span>  Out[<span style="color:#bd93f9">18</span>]: <span style="color:#bd93f9">11</span>
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">19</span>]: b
+</span></span><span style="display:flex;"><span>  Out[<span style="color:#bd93f9">19</span>]: <span style="color:#bd93f9">22</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">20</span>]: a, b <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">11</span>, <span style="color:#bd93f9">22</span>]
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">21</span>]: a
+</span></span><span style="display:flex;"><span>  Out[<span style="color:#bd93f9">21</span>]: <span style="color:#bd93f9">11</span>
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">22</span>]: b
+</span></span><span style="display:flex;"><span>  Out[<span style="color:#bd93f9">22</span>]: <span style="color:#bd93f9">22</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">23</span>]: a, b <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;m&#34;</span>:<span style="color:#bd93f9">11</span>, <span style="color:#f1fa8c">&#34;n&#34;</span>:<span style="color:#bd93f9">22</span>}  <span style="color:#6272a4"># 取出来的是key，而不是键值对</span>
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">24</span>]: a
+</span></span><span style="display:flex;"><span>  Out[<span style="color:#bd93f9">24</span>]: <span style="color:#f1fa8c">&#39;m&#39;</span>
+</span></span><span style="display:flex;"><span>  In [<span style="color:#bd93f9">25</span>]: b
+</span></span><span style="display:flex;"><span>  Out[<span style="color:#bd93f9">25</span>]: <span style="color:#f1fa8c">&#39;n&#39;</span>
+</span></span></code></pre></div><h2 id="二交换变量值">二.交换变量值</h2>
+<p>交换变量的方法有很多, 主要有以下几种方式</p>
+<h3 id="1借用第三方">1.借用第三方</h3>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">0</span>  <span style="color:#6272a4"># 第三方</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 交换开始</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#ff79c6">=</span> a
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> b
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span></code></pre></div><h3 id="2计算法">2.计算法</h3>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">4</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 开始计算</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> a<span style="color:#ff79c6">+</span>b  <span style="color:#6272a4"># a=9, b=5</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> a<span style="color:#ff79c6">-</span>b  <span style="color:#6272a4"># a=9, b=4</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> a<span style="color:#ff79c6">-</span>b  <span style="color:#6272a4"># a=5, b=4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span></code></pre></div><h3 id="3拆包法">3.拆包法</h3>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>a, b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">4</span>, <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>a, b <span style="color:#ff79c6">=</span> b, a
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/32/" data-toggle="tooltip" data-placement="top" title="Python函数(六)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/34/" data-toggle="tooltip" data-placement="top" title="Python函数(八)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

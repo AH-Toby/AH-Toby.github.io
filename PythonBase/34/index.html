@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-function.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-function.jpg" />
+    
+
+    
+    <meta name="title" content="Python函数(八)" />
+    <meta property="og:title" content="Python函数(八)" />
+    <meta property="twitter:title" content="Python函数(八)" />
+    
+
+    
+    <meta name="description" content="介绍Python中函数的内存引用，可变类型和不可变类型等">
+    <meta property="og:description" content="介绍Python中函数的内存引用，可变类型和不可变类型等" />
+    <meta property="twitter:description" content="介绍Python中函数的内存引用，可变类型和不可变类型等" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python函数(八) | Toby Wong的博客</title>
+
+    <link rel="canonical" href="/PythonBase/34/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">归档</a></li>
+                    
+                        <li><a href="/about//">关于我</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-function.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                    </div>
+                    <h1>Python函数(八)</h1>
+                    <h2 class="subheading">函数的内存</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Tuesday, June 9, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一引用">一.引用</h2>
+<p><strong>含义:</strong> 在Python中，引用是指一个变量所指向的对象在内存中的地址。换句话说，变量名并不直接存储对象的值，而是存储对象的内存地址，通过这个地址来访问对象的值。因此，当你使用一个变量时，实际上是在使用它所引用的对象</p>
+<p><strong>引用的重要概念:</strong></p>
+<ul>
+<li><strong>变量:</strong> 在Python中，变量是一个名字，用于引用内存中的对象</li>
+<li><strong>对象:</strong> 在Python中，对象是存储数据的实体，可以是数字、字符串、列表、函数等</li>
+<li><strong>内存地址:</strong> 每个对象在内存中都有一个唯一的地址，可以通过id()函数获取。这个地址是对象的引用。我们可以用id()来判断两个变量是否为同一个值的引用。</li>
+</ul>
+<p><strong>demo01:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> a
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">2</span>
+</span></span></code></pre></div><p><strong>demo02:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> a
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span>a<span style="color:#ff79c6">.</span>append(<span style="color:#bd93f9">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>,<span style="color:#bd93f9">3</span>]
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>,<span style="color:#bd93f9">3</span>]
+</span></span></code></pre></div><p><strong>为什么demo01和demo02的执行过程相同但是结果不同呢?</strong></p>
+<p>可以用 <code>id()</code> 方法来理解</p>
+<p><strong>demo01:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> a
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(b))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(a))
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(b))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(a))
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">4349635216</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">4349635216</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">4349635216</span>  <span style="color:#6272a4"># b的引用地址不变</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">4349635248</span>  <span style="color:#6272a4"># 此时a的引用地址已经变了</span>
+</span></span></code></pre></div><p>让我们一行一行地分析它：</p>
+<ol>
+<li>a = 1：创建一个整数对象1，并将变量 a 指向该对象。</li>
+<li>b = a：将变量 b 指向与变量 a 相同的对象，即整数对象1。</li>
+<li>print(b)：输出变量 b 的值，即1。</li>
+<li>print(id(b))：输出变量 b 所指向对象的内存地址。</li>
+<li>print(a)：输出变量 a 的值，即1。</li>
+<li>print(id(a))：输出变量 a 所指向对象的内存地址。</li>
+<li>a = 2：创建一个新的整数对象2，并将变量 a 指向该对象。此时，变量 b 不受影响。</li>
+<li>print(b)：输出变量 b 的值，依然是1。</li>
+<li>print(id(b))：输出变量 b 所指向对象的内存地址，与之前相同。</li>
+<li>print(a)：输出变量 a 的值，现在是2。</li>
+<li>print(id(a))：输出变量 a 所指向对象的内存地址，已经改变，指向了新的整数对象2。</li>
+</ol>
+<p><strong>demo02:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> a
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(b))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(a))
+</span></span><span style="display:flex;"><span>a<span style="color:#ff79c6">.</span>append(<span style="color:#bd93f9">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(b)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(b))
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">id</span>(a))
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">140383118477632</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">140383118477632</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>]
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">140383118477632</span>  <span style="color:#6272a4"># 地址不变</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>]
+</span></span><span style="display:flex;"><span><span style="color:#bd93f9">140383118477632</span>  <span style="color:#6272a4"># 地址不变</span>
+</span></span></code></pre></div><p>让我们一行一行地分析它：</p>
+<ol>
+<li>a = [1, 2]：创建一个列表对象 [1, 2]，并将变量 a 指向该对象。</li>
+<li>b = a：将变量 b 指向与变量 a 相同的列表对象 [1, 2]。</li>
+<li>print(b)：输出变量 b 的值，即 [1, 2]。</li>
+<li>print(id(b))：输出变量 b 所指向对象的内存地址。</li>
+<li>print(a)：输出变量 a 的值，也是 [1, 2]。</li>
+<li>print(id(a))：输出变量 a 所指向对象的内存地址，与变量 b 相同。</li>
+<li>a.append(3)：向列表对象 [1, 2] 中追加一个元素3。由于 a 和 b 指向同一个对象，因此这个修改会同时影响到 a 和 b。</li>
+<li>print(b)：输出变量 b 的值，即 [1, 2, 3]。</li>
+<li>print(id(b))：输出变量 b 所指向对象的内存地址，与之前相同。</li>
+<li>print(a)：输出变量 a 的值，现在也是 [1, 2, 3]。</li>
+<li>print(id(a))：输出变量 a 所指向对象的内存地址，与之前相同。</li>
+</ol>
+<p><strong>如图所示:</strong></p>
+<p>
+  <img src="/img/python/python_memory.png" alt="id_ref">
+
+</p>
+<blockquote>
+<p><strong>注意:</strong></p>
+<p>之前为了更好的理解变量，咱们可以把 <code>a=100</code> 理解为变量a中存放了100，事实上变量a存储是100的引用（可理解为在内存中的一个编号）</p>
+</blockquote>
+<h2 id="二可变不可变类型">二.可变、不可变类型</h2>
+<p><strong>意义:</strong> 数据类型可以分为 <code>可变(Mutable)</code> 和 <code>不可变(Immutable)</code> 两种类型。这种分类是基于对象的可变性，即对象是否可以在原地修改。</p>
+<h3 id="1可变类型mutable">1.可变类型(Mutable)</h3>
+<p>可变对象是指在创建之后可以修改其内容的对象。当修改可变对象时，对象的标识(即内存地址)不会改变，但对象的内容可以改变。</p>
+<p><strong>常见的可变类型:</strong> 列表(list)、字典(dict)、集合(set)等。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>my_list <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#bd93f9">3</span>]
+</span></span><span style="display:flex;"><span>my_list<span style="color:#ff79c6">.</span>append(<span style="color:#bd93f9">4</span>)  <span style="color:#6272a4"># 修改列表内容，但列表对象的标识不变</span>
+</span></span></code></pre></div><h3 id="2不可变类型immutable">2.不可变类型(Immutable)</h3>
+<p>不可变对象是指创建之后其内容不可修改的对象。当对不可变对象进行操作时，会生成一个新的对象。不可变对象的标识(即内存地址)通常是根据对象的值计算得到的，所以同样的值通常具有相同的标识。</p>
+<p><strong>常见的不可变类型:</strong> 整数(int)、浮点数(float)、字符串(str)、元组(tuple)。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>my_string <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>my_string<span style="color:#ff79c6">.</span>upper()  <span style="color:#6272a4"># 返回一个新的字符串对象，但原始字符串对象不变</span>
+</span></span></code></pre></div><p>总的来说，可变对象允许就地修改其内容，而不可变对象的内容一旦创建后就无法更改。这种区别在编写代码时需要考虑到，尤其是在涉及到函数参数传递、数据共享和对象状态管理等方面。</p>
+<h2 id="三引用作为实参">三.引用作为实参</h2>
+<p>Python中函数参数是引用传递(注意不是值传递),
+对于不可变类型，因变量不能修改，所以运算不会影响到变量自身,
+而对于可变类型来说，函数体中的运算有可能会更改传入的参数变量(为了解决这个问题参考高级部分深浅拷贝)</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">test1</span>(b):  <span style="color:#6272a4"># 变量b一定是一个局部变量，就看它指向的是谁？可变还是不可变</span>
+</span></span><span style="display:flex;"><span>    b <span style="color:#ff79c6">+=</span> b  <span style="color:#6272a4"># += 是直接对b指向的空间进行修改,而不是让b指向一个新的</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># b = b+b  # xx = xx+yyy 先把=号右边的结果计算出来,然后让b指向这个新的地方,不管原来b指向谁</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># 现在b一定指向这个新的地方</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># a = [11, 22]</span>
+</span></span><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">100</span>
+</span></span><span style="display:flex;"><span>test1(a)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(a)
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/33/" data-toggle="tooltip" data-placement="top" title="Python函数(七)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

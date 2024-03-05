@@ -2,113 +2,137 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://ah-toby.github.io/categories/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/post/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/categories/python/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/tags/pythonbase/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/34/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/tags/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/</loc>
+    <lastmod>2020-06-09T00:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/33/</loc>
+    <lastmod>2020-06-08T23:34:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/32/</loc>
+    <lastmod>2020-06-08T23:20:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/31/</loc>
+    <lastmod>2020-06-08T22:54:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/30/</loc>
+    <lastmod>2020-06-07T14:54:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/29/</loc>
+    <lastmod>2020-06-07T14:44:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/28/</loc>
+    <lastmod>2020-06-07T14:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/27/</loc>
+    <lastmod>2020-06-07T14:01:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ah-toby.github.io/PythonBase/26/</loc>
     <lastmod>2020-06-03T16:21:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2020-06-03T16:21:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/python/</loc>
-    <lastmod>2020-06-03T16:21:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/pythonbase/</loc>
-    <lastmod>2020-06-03T16:21:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/PythonBase/26/</loc>
-    <lastmod>2020-06-03T16:21:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2020-06-03T16:21:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2020-06-03T16:21:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/PythonBase/25/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/25/</loc>
     <lastmod>2020-06-03T15:46:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/24/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/24/</loc>
     <lastmod>2020-06-03T15:40:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/23/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/23/</loc>
     <lastmod>2020-06-03T15:04:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/22/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/22/</loc>
     <lastmod>2020-06-02T15:29:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/21/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/21/</loc>
     <lastmod>2020-06-02T15:13:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/20/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/20/</loc>
     <lastmod>2020-06-02T00:24:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/19/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/19/</loc>
     <lastmod>2020-06-02T00:17:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/18/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/18/</loc>
     <lastmod>2020-06-01T16:24:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/17/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/17/</loc>
     <lastmod>2020-06-01T16:10:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/16/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/16/</loc>
     <lastmod>2020-06-01T16:06:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/15/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/15/</loc>
     <lastmod>2020-06-01T15:57:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/14/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/14/</loc>
     <lastmod>2020-06-01T15:33:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/13/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/13/</loc>
     <lastmod>2020-06-01T14:57:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/12/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/12/</loc>
     <lastmod>2020-06-01T14:38:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/11/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/11/</loc>
     <lastmod>2020-06-01T14:05:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/10/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/10/</loc>
     <lastmod>2020-05-29T14:47:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/9/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/9/</loc>
     <lastmod>2020-05-29T14:43:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/8/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/8/</loc>
     <lastmod>2020-05-29T14:13:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/7/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/7/</loc>
     <lastmod>2020-05-29T13:57:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/6/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/6/</loc>
     <lastmod>2020-05-29T13:45:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/5/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/5/</loc>
     <lastmod>2020-05-27T12:32:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/4/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/4/</loc>
     <lastmod>2020-05-27T12:17:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/3/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/3/</loc>
     <lastmod>2020-05-27T11:16:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/2/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/2/</loc>
     <lastmod>2020-05-27T10:53:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/computer/</loc>
+    <loc>https://ah-toby.github.io/tags/computer/</loc>
     <lastmod>2020-05-27T10:33:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/PythonBase/1/</loc>
+    <loc>https://ah-toby.github.io/PythonBase/1/</loc>
     <lastmod>2020-05-27T10:33:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://ah-toby.github.io/about/</loc>
   </url><url>
-    <loc>http://localhost:1313/notes/</loc>
+    <loc>https://ah-toby.github.io/notes/</loc>
   </url><url>
-    <loc>http://localhost:1313/search/placeholder/</loc>
+    <loc>https://ah-toby.github.io/search/placeholder/</loc>
   </url><url>
-    <loc>http://localhost:1313/archive/</loc>
+    <loc>https://ah-toby.github.io/archive/</loc>
   </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://ah-toby.github.io/search/</loc>
   </url>
 </urlset>
