@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python_Base on Toby Blog</title>
+    <link>http://localhost:1313/tags/python_base/</link>
+    <description>Recent content in Python_Base on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <lastBuildDate>Wed, 10 Jun 2020 16:14:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python_base/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python文件操作(二)</title>
+      <link>http://localhost:1313/PythonBase/39/</link>
+      <pubDate>Wed, 10 Jun 2020 16:14:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/39/</guid>
+      <description>一.os模块介绍 Python 的 os 模块提供了许多用于与操作系统进行交互的功能。以下是一些 os 模块中常用的操作： 1.获取当前工作目录 import os cwd = os.getcwd() print(&amp;</description>
+    </item>
+  </channel>
+</rss>

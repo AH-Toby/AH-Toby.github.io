@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PythonBase - DataTypes on Toby Blog</title>
+    <link>http://localhost:1313/tags/pythonbase---datatypes/</link>
+    <description>Recent content in PythonBase - DataTypes on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <lastBuildDate>Tue, 02 Jun 2020 15:13:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/pythonbase---datatypes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python基本数据类型(一)</title>
+      <link>http://localhost:1313/PythonBase/21/</link>
+      <pubDate>Tue, 02 Jun 2020 15:13:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/21/</guid>
+      <description>一.字符串介绍 被一对双引号或者单引号包裹的数据就是字符串 结构: a = &amp;#34;字符串&amp;#34; a = &amp;#39;字符串&amp;#39; a = &amp;#34;&amp;#</description>
+    </item>
+  </channel>
+</rss>

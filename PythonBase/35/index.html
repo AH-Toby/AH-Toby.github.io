@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-function.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-function.jpg" />
+    
+
+    
+    <meta name="title" content="Python函数(九)" />
+    <meta property="og:title" content="Python函数(九)" />
+    <meta property="twitter:title" content="Python函数(九)" />
+    
+
+    
+    <meta name="description" content="介绍Python中两个特殊的函数递归函数和匿名函数">
+    <meta property="og:description" content="介绍Python中两个特殊的函数递归函数和匿名函数" />
+    <meta property="twitter:description" content="介绍Python中两个特殊的函数递归函数和匿名函数" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python函数(九) | Toby Wong的博客</title>
+
+    <link rel="canonical" href="/PythonBase/35/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">归档</a></li>
+                    
+                        <li><a href="/about//">关于我</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-function.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonfuntion" title="PythonFuntion">
+                            PythonFuntion
+                        </a>
+                        
+                    </div>
+                    <h1>Python函数(九)</h1>
+                    <h2 class="subheading">递归和匿名函数</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Wednesday, June 10, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一递归函数">一.递归函数</h2>
+<p>所谓的递归函数是指在函数会重复调用自身，直到满足某个条件才停止递归调用。递归函数通常用于解决可以被分解为更小、相似问题的问题，例如数学中的阶乘、斐波那契数列等。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">函数名</span>(参数):
+</span></span><span style="display:flex;"><span>    函数名()
+</span></span></code></pre></div><p><strong>demo:</strong> 计算阶乘</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 计算n的阶乘!n = 1*2*3*4*....*n</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">factorial</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 基线条件（base case）</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">if</span> n <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 递归调用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> n <span style="color:#ff79c6">*</span> factorial(n <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 测试递归函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(factorial(<span style="color:#bd93f9">5</span>))  <span style="color:#6272a4"># 输出: 120</span>
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#bd93f9">120</span>
+</span></span></code></pre></div><p>在这个例子中，函数 factorial() 以参数 n 的形式被定义。在函数体内部，首先检查是否满足基线条件（即 n == 0），如果满足，则返回1作为结果。否则，函数将调用自身，传入 n - 1 作为参数，并将 n 与调用结果相乘。这个过程会一直持续下去，直到满足基线条件，递归才会停止。</p>
+<p><strong>注意:</strong></p>
+<blockquote>
+<p>1.确保存在一个或多个基线条件，可以终止递归调用，防止函数无限递归。</p>
+<p>2.每一次递归调用，问题规模都应该减小，否则可能会导致无限递归。</p>
+<p>3.递归函数的性能可能不如迭代函数，因为递归会产生额外的函数调用和函数上下文开销。</p>
+</blockquote>
+<h2 id="二匿名函数">二.匿名函数</h2>
+<p>匿名函数，也称为lambda函数，是一种在Python中创建简单函数的方法，它允许你在一行内定义函数而不需要使用标准的函数定义语法(def语句)。lambda函数通常用于需要一个简单函数的地方，而不是定义一个完整的函数。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">lambda</span> arguments:expression
+</span></span></code></pre></div><p><strong>arguments:</strong> 函数的参数，可以是零个或多个，用逗号分隔</p>
+<p><strong>expression:</strong> 函数的返回值表达式</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>add <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">lambda</span> x, y: x <span style="color:#ff79c6">+</span> y
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(add(<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">5</span>))
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#bd93f9">8</span>
+</span></span></code></pre></div><p>在这个例子中，lambda函数接受两个参数 x 和 y，并返回它们的和。lambda函数可以直接赋值给一个变量（在这个例子中是 add），然后可以像普通函数一样调用。</p>
+<blockquote>
+<p><strong>总结:</strong></p>
+<p>Lambda函数能接收任意数量的参数但只能返回一个表达式的值</p>
+<p>匿名函数可以执行任意表达式(甚至print函数)，但是一般认为表达式应该有一个计算结果供返回使用。</p>
+</blockquote>
+<h2 id="三匿名函数应用场合举例">三.匿名函数应用场合举例</h2>
+<h3 id="1自己定义函数">1.自己定义函数</h3>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">fun</span>(a, b, opt):
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;a = &#34;</span> <span style="color:#ff79c6">%</span> a)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;b = &#34;</span> <span style="color:#ff79c6">%</span> b)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;result =&#34;</span> <span style="color:#ff79c6">%</span> opt(a, b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fun(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>, <span style="color:#ff79c6">lambda</span> x,y:x<span style="color:#ff79c6">+</span>y)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span>b <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>result <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3</span>
+</span></span></code></pre></div><h3 id="2作为内置函数的参数">2.作为内置函数的参数</h3>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>stus <span style="color:#ff79c6">=</span> [
+</span></span><span style="display:flex;"><span>    {<span style="color:#f1fa8c">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;zhangsan&#34;</span>, <span style="color:#f1fa8c">&#34;age&#34;</span>: <span style="color:#bd93f9">18</span>}, 
+</span></span><span style="display:flex;"><span>    {<span style="color:#f1fa8c">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;lisi&#34;</span>, <span style="color:#f1fa8c">&#34;age&#34;</span>: <span style="color:#bd93f9">19</span>}, 
+</span></span><span style="display:flex;"><span>    {<span style="color:#f1fa8c">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;wangwu&#34;</span>, <span style="color:#f1fa8c">&#34;age&#34;</span>: <span style="color:#bd93f9">17</span>}
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>func <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">lambda</span> x: x[<span style="color:#f1fa8c">&#39;name&#39;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(stus<span style="color:#ff79c6">.</span>sort(key<span style="color:#ff79c6">=</span>func))
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[{<span style="color:#f1fa8c">&#39;age&#39;</span>: <span style="color:#bd93f9">19</span>, <span style="color:#f1fa8c">&#39;name&#39;</span>: <span style="color:#f1fa8c">&#39;lisi&#39;</span>}, {<span style="color:#f1fa8c">&#39;age&#39;</span>: <span style="color:#bd93f9">17</span>, <span style="color:#f1fa8c">&#39;name&#39;</span>: <span style="color:#f1fa8c">&#39;wangwu&#39;</span>}, {<span style="color:#f1fa8c">&#39;age&#39;</span>: <span style="color:#bd93f9">18</span>, <span style="color:#f1fa8c">&#39;name&#39;</span>: <span style="color:#f1fa8c">&#39;zhangsan&#39;</span>}]
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/34/" data-toggle="tooltip" data-placement="top" title="Python函数(八)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/36/" data-toggle="tooltip" data-placement="top" title="Python奇技淫巧(一)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

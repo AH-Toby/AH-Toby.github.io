@@ -172,6 +172,10 @@
                             PythonBase
                         </a>
                         
+                        <a class="tag" href="/tags/datatypes" title="DataTypes">
+                            DataTypes
+                        </a>
+                        
                     </div>
                     <h1>Python基本数据类型(三)</h1>
                     <h2 class="subheading">列表-list</h2>
@@ -210,7 +214,7 @@
                 
                 <h2 id="一什么是列表">一.什么是列表</h2>
 <p><strong>作用:</strong> 列表是用来存储大量数据的容器</p>
-<p><strong>格式:</strong></p>
+<p><strong>结构:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>[value1,value2,value3,<span style="color:#ff79c6">...</span>]
 </span></span></code></pre></div><blockquote>
 <p><strong>注意:</strong></p>
@@ -220,7 +224,7 @@
 <h3 id="1增加元素">1.增加元素</h3>
 <h4 id="11append">1.1.append</h4>
 <p><strong>作用:</strong> 在列表的末尾添加元素</p>
-<p><strong>格式:</strong></p>
+<p><strong>结构:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>append(values)
 </span></span></code></pre></div><p><strong>demo:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4">#定义变量A，默认有3个元素</span>
@@ -250,7 +254,7 @@
 </span></span><span style="display:flex;"><span>哈哈
 </span></span></code></pre></div><h4 id="12insert">1.2.insert</h4>
 <p><strong>作用:</strong> 向列表中指定位置插入数据</p>
-<p><strong>格式:</strong></p>
+<p><strong>结构:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>insert(index, <span style="color:#8be9fd;font-style:italic">object</span>) <span style="color:#6272a4"># 在指定位置index前插入元素object</span>
 </span></span></code></pre></div><p><strong>demo:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">&gt;&gt;&gt;</span> a <span style="color:#ff79c6">=</span> [<span style="color:#bd93f9">0</span>, <span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">2</span>]
@@ -273,7 +277,7 @@
 </span></span></code></pre></div><h3 id="2删除元素">2.删除元素</h3>
 <h4 id="21del">2.1.del</h4>
 <p><strong>作用:</strong> 根据下标进行删除</p>
-<p><strong>格式:</strong></p>
+<p><strong>结构:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">del</span> mylist(index)  <span style="color:#6272a4"># 删除mylist中index位置的元素</span>
 </span></span></code></pre></div><p><strong>demo:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>movieName <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;加勒比海盗&#39;</span>,<span style="color:#f1fa8c">&#39;骇客帝国&#39;</span>,<span style="color:#f1fa8c">&#39;第一滴血&#39;</span>,<span style="color:#f1fa8c">&#39;指环王&#39;</span>,<span style="color:#f1fa8c">&#39;霍比特人&#39;</span>,<span style="color:#f1fa8c">&#39;速度与激情&#39;</span>]
@@ -363,7 +367,7 @@
 </span></span><span style="display:flex;"><span>速度与激情
 </span></span></code></pre></div><h3 id="3修改元素">3.修改元素</h3>
 <p>修改元素的时候，要通过下标来确定要修改的是哪个元素，然后才能进行修改</p>
-<p><strong>格式:</strong></p>
+<p><strong>结构:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist[index] <span style="color:#ff79c6">=</span> newValue
 </span></span></code></pre></div><p><strong>demo:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 定义变量A，默认有3个元素</span>
@@ -433,7 +437,7 @@
 </span></span></code></pre></div><h3 id="5排序">5.排序</h3>
 <h4 id="51sortreverse">5.1.sort,reverse</h4>
 <p>对列表元素进行排序</p>
-<p><strong>格式:</strong></p>
+<p><strong>结构:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mylist<span style="color:#ff79c6">.</span>sort(reverse<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
 </span></span></code></pre></div><blockquote>
 <p><strong>注意:</strong></p>
@@ -502,9 +506,23 @@
                         
                         
                         
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
                         <a href="/tags/pythonbase" title="pythonbase">
                             pythonbase
                         </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
                         
                         
                     </div>

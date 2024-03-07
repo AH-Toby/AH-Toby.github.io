@@ -2,24 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Toby Blog</title>
-    <link>https://ah-toby.github.io/tags/</link>
+    <link>https://blog.tobyblogs.cn/tags/</link>
     <description>Recent content in Tags on Toby Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-hans</language>
-    <lastBuildDate>Tue, 09 Jun 2020 00:17:00 +0000</lastBuildDate>
-    <atom:link href="https://ah-toby.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Jun 2020 14:36:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.tobyblogs.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>PythonBase</title>
-      <link>https://ah-toby.github.io/tags/pythonbase/</link>
-      <pubDate>Tue, 09 Jun 2020 00:17:00 +0000</pubDate>
-      <guid>https://ah-toby.github.io/tags/pythonbase/</guid>
+      <link>https://blog.tobyblogs.cn/tags/pythonbase/</link>
+      <pubDate>Thu, 11 Jun 2020 14:36:00 +0000</pubDate>
+      <guid>https://blog.tobyblogs.cn/tags/pythonbase/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PythonOOP</title>
+      <link>https://blog.tobyblogs.cn/tags/pythonoop/</link>
+      <pubDate>Thu, 11 Jun 2020 14:36:00 +0000</pubDate>
+      <guid>https://blog.tobyblogs.cn/tags/pythonoop/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DataTypes</title>
+      <link>https://blog.tobyblogs.cn/tags/datatypes/</link>
+      <pubDate>Wed, 10 Jun 2020 15:44:00 +0000</pubDate>
+      <guid>https://blog.tobyblogs.cn/tags/datatypes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PythonFuntion</title>
+      <link>https://blog.tobyblogs.cn/tags/pythonfuntion/</link>
+      <pubDate>Wed, 10 Jun 2020 14:29:00 +0000</pubDate>
+      <guid>https://blog.tobyblogs.cn/tags/pythonfuntion/</guid>
       <description></description>
     </item>
     <item>
       <title>Computer</title>
-      <link>https://ah-toby.github.io/tags/computer/</link>
+      <link>https://blog.tobyblogs.cn/tags/computer/</link>
       <pubDate>Wed, 27 May 2020 10:33:00 +0000</pubDate>
-      <guid>https://ah-toby.github.io/tags/computer/</guid>
+      <guid>https://blog.tobyblogs.cn/tags/computer/</guid>
       <description></description>
     </item>
   </channel>

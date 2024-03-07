@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data on Toby Blog</title>
+    <link>http://localhost:1313/tags/data/</link>
+    <description>Recent content in Data on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <lastBuildDate>Wed, 27 May 2020 12:32:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/data/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python基础知识(五)</title>
+      <link>http://localhost:1313/PythonBase/5/</link>
+      <pubDate>Wed, 27 May 2020 12:32:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/5/</guid>
+      <description>一.什么是变量 变量是存放数据值的容器， 程序就是用来处理数据的，而变量就是用来存储数据的 二.数据类型 为了更充分的利用内存空间以及更有效率的管理</description>
+    </item>
+  </channel>
+</rss>

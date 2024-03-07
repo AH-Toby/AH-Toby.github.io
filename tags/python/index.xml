@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Toby Blog</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-hans</language>
+    <lastBuildDate>Sun, 07 Jun 2020 14:01:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python函数(一)</title>
+      <link>http://localhost:1313/PythonBase/27/</link>
+      <pubDate>Sun, 07 Jun 2020 14:01:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/27/</guid>
+      <description>一.什么是函数？ 如果在开发程序时，需要某块代码多次使用，但是为了提高编写的效率以及代码的重用，所以把具有独立功能的代码块组织为一个小模块，这</description>
+    </item>
+  </channel>
+</rss>
