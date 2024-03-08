@@ -112,9 +112,9 @@
                     
                     
 		    
-                        <li><a href="/archive//">归档</a></li>
+                        <li><a href="/archive//">archive</a></li>
                     
-                        <li><a href="/about//">关于我</a></li>
+                        <li><a href="/about//">about</a></li>
                     
 		            <li>
                         <a href="/search"><i class="fa fa-search"></i></a>
@@ -217,53 +217,107 @@
 
                 
                 <h2 id="一什么是面向对象">一.什么是面向对象？</h2>
-<p>生活中我们用洗衣机洗衣服不比考虑洗衣机的构造和制造我们只需要直接把衣服丢进去即可，这种 <strong>让其他专业的事物去做的思想</strong> 就是面向对象，每一步我们都不需要亲力亲为，只需要关注结果就行。在编程中面向对象编程思想将数据与函数绑定到一起分类进行封装，每个程序员只要负责分配给自己的分类，这样能够更快速的开发程序，减少了重复代码。</p>
+<p>生活中我们用洗衣机洗衣服不需要考虑洗衣机的构造和制造我们只需要直接把衣服丢进去即可，这种 <code>让其他专业的事物去做的思想</code> 就是面向对象，每一步我们都不需要亲力亲为，只需要关注结果就行。在编程中面向对象编程思想将数据与函数绑定到一起分类进行封装，每个程序员只要负责分配给自己的分类，这样能够更快速的开发程序，减少了重复代码。</p>
 <h2 id="二面向过程和面向对象对比">二.面向过程和面向对象对比</h2>
 <p><strong>面向过程:</strong> 根据业务逻辑从上到下写代码，每一步都是自己做。</p>
-<p><strong>面向对象:</strong> 将数据与函数绑定到一起，分类进行<strong>封装</strong>，每个程序员只要负责分配给自己的分类，这样能够更快速的开发程序，减少了重复代码，每一步都照专业的人做</p>
+<p><strong>面向对象:</strong> 将数据与函数绑定到一起，分类进行 <code>封装</code>，每个程序员只要负责分配给自己的分类，这样能够更快速的开发程序，减少了重复代码，每一步都照专业的人做</p>
 <h2 id="三面向对象和面向对象编程">三.面向对象和面向对象编程</h2>
 <h3 id="1面向对象object-oriented简称oo">1.面向对象(Object Oriented,简称:OO)</h3>
-<p>至今还没有统一的概念我这里把它定义为:</p>
-<p>按人们 认识客观世界的系统思维方式,采用基于对象(实体)的概念建立模型,模拟客观世界分析、设 计、实现软件的办法。</p>
-<h3 id="2面向对象编程object-oriented-programming-oop">2.面向对象编程(Object Oriented Programming-OOP)</h3>
-<p>是一种解决软件复用的设计和编程方法。</p>
-<p>这种方法把软件系统中相近相似的操作逻辑和操作 应用数据、状态,以类的型式描述出来,以对象实例的形式在软件系统中复用,以达到提高软件开发效率的作用。</p>
+<p>至今还没有统一的概念，我这里把它定义为:</p>
+<p>按人们认识客观世界的系统思维方式，采用基于对象(实体)的概念建立模型，模拟客观世界分析、设 计、实现软件的办法。</p>
+<h3 id="2面向对象编程object-oriented-programming简称oop">2.面向对象编程(Object Oriented Programming,简称OOP)</h3>
+<p>是一种解决软件复用的设计和编程方法，简单说就是一种编程范式。</p>
+<p>其中的核心概念是 <code>对象</code> 、 <code>类</code> 和 <code>方法</code> 。在面向对象编程中，程序的主要构建单元是对象，这些对象是对现实世界中的实体或概念的抽象表示。每个对象都有自己的 <code>属性</code> (称为数据成员或字段)和行为(称为方法或函数)。</p>
 <h2 id="四类和对象">四.类和对象</h2>
-<p>面向对象编程的2个非常重要的概念：类和对象</p>
 <p>对象是面向对象编程的核心，在使用对象的过程中，为了将具有共同特征和行为的一组对象抽象定义，提出了另外一个新的概念: <strong>类</strong></p>
 <p>类就相当于制造飞机时的图纸，用它来进行创建的飞机就相当于对象</p>
 <h3 id="1类">1.类</h3>
-<p><strong>概念：</strong></p>
-<pre tabindex="0"><code>具有相似内部状态和运动规律的实体的集合(或统称为抽象)。 
-具有相同属性和行为事物的统称
-</code></pre><p>类是抽象的,在使用的时候通常会找到这个类的一个具体的存在,使用这个具体的存在。一个类可以找到多个对象</p>
+<p><strong>概念:</strong> 具有相似内部状态和运动规律的实体的集合(或统称为抽象)，简单说就是具有相同属性和行为事物的统称。类是对象的模板或蓝图，用于创建特定类型的对象。类定义了对象的属性和方法。一个类可以找到多个对象。</p>
 <h3 id="2对象">2.对象</h3>
-<p><strong>概念：</strong></p>
-<pre tabindex="0"><code>某一个具体事物的存在,在现实世界中可以是看得见摸得着的。
-可以是直接使用的
-</code></pre><h3 id="3类和对象的关系">3.类和对象的关系</h3>
-<p>类和对象的关系好比就是做饼的模子和饼之间的关系，通过模子来制造饼。<strong>类就是创建对象的模板</strong></p>
-<h3 id="4类的构成">4.类的构成</h3>
-<p>类(Class) 由3个部分构成</p>
+<p><strong>概念:</strong> 某一个具体事物的存在,在现实世界中可以是看得见摸得着的。可以是直接使用的。对象是类的实例。它是内存中的实体，具有特定的属性和方法。</p>
+<h3 id="3类和对象的关系">3.类和对象的关系</h3>
+<p>简单举例来说：类和对象的关系好比就是做饼的模子和饼之间的关系，通过模子来制造饼。<code>类就是创建对象的模板</code></p>
+<p><strong>具体关系:</strong></p>
 <ul>
-<li>类的名称:类名</li>
-<li>类的属性(就是变量):一组数据</li>
-<li>类的方法(就是函数):允许对进行操作的方法 (行为)</li>
+<li><strong>类是对象的蓝图或模板:</strong> 类定义了对象的属性和行为(方法)。对象是根据类创建的具体实例</li>
+<li><strong>类是抽象的,对象是具体的:</strong> 类描述了一组共性，比如&quot;人类&quot;这个类。对象是具体存在的个体,比如具体的&quot;张三&quot;这个人</li>
+<li><strong>对象通过类实例化创建:</strong> 使用类似 obj = MyClass() 的语句,根据类实例化创建对象。对象拥有该类定义的所有属性和方法</li>
+<li><strong>类是逻辑上的概念,对象是内存中的实体:</strong> 类只是一个逻辑概念,直到实例化后才真正存在。对象在内存中占有空间,可访问其属性和方法</li>
+<li><strong>一个类可以有多个对象实例:</strong> 同一个类可以创建出多个不同的对象实例。不同对象拥有独立的属性值,但方法是共享的</li>
+<li><strong>通过对象访问类的属性和方法:</strong> 使用 object.attribute 访问对象的属性。使用 object.method() 调用对象的方法</li>
 </ul>
-<p>demo:</p>
-<pre tabindex="0"><code># 猫类
-类名:猫(cat)
-属性:品种 、毛色、性别、名字、 腿儿的数量
-方法(行为/功能):叫 、跑、吃、摇尾巴
-</code></pre><h3 id="5-类的抽象">5. 类的抽象</h3>
-<p><strong>如何把日常生活中的事物抽象成程序中的类?</strong></p>
-<p>拥有相同(或者类似)属性和行为的对象都可以抽像出一个类</p>
-<p><strong>方法:一般名词都是类(名词提炼法)</strong></p>
-<p>Eg:</p>
-<pre tabindex="0"><code>小明正在使用电脑编程
-小明 --&gt;可以抽像成人类
-电脑 --&gt;可以抽像成电脑类
-</code></pre>
+<h3 id="4类的构成">4.类的构成</h3>
+<p>类(Class) 由以下部分构成</p>
+<ul>
+<li>
+<p><strong>类名(Class Name):</strong> 是在定义类时指定的，通常使用大驼峰命名法，例如 <code>Car</code>。</p>
+</li>
+<li>
+<p><strong>属性(Attributes):</strong> 属性是类中的变量，用于存储对象的状态或数据。在Python中，属性可以是类变量（被所有实例共享）或实例变量（每个实例拥有自己的副本）。</p>
+</li>
+<li>
+<p><strong>方法(Methods):</strong> 方法是类中的函数，用于定义对象的行为。类中的方法可以访问并操作对象的属性，也可以执行其他操作。</p>
+</li>
+<li>
+<p><strong>构造函数(Constructor):</strong> 构造函数是一种特殊的方法，它在创建类的实例时自动调用。在Python中，构造函数的名称是 <code>__init__()</code>，它用于初始化对象的属性。</p>
+</li>
+<li>
+<p><strong>特殊方法(Special Methods):</strong> Python还提供了一些特殊方法，也称为魔术方法或双下划线方法（dunder methods），用于实现类的特殊行为，例如 <code>__str__()</code> 方法用于定义对象的字符串表示形式，<code>__len__()</code> 方法用于定义对象的长度。</p>
+</li>
+<li>
+<p><strong>self参数:</strong> 在类的方法中，第一个参数通常被命名为self，它表示对象本身。通过self参数，方法可以访问并操作对象的属性和方法。</p>
+</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Car</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 构造函数</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, make, model):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>make <span style="color:#ff79c6">=</span> make  <span style="color:#6272a4"># 实例变量</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>model <span style="color:#ff79c6">=</span> model  <span style="color:#6272a4"># 实例变量</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 实例方法</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">drive</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>make<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>model<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> is driving&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 特殊方法</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __str__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>make<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>model<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建Car类的实例</span>
+</span></span><span style="display:flex;"><span>car <span style="color:#ff79c6">=</span> Car(<span style="color:#f1fa8c">&#34;Toyota&#34;</span>, <span style="color:#f1fa8c">&#34;Corolla&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问实例变量</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(car<span style="color:#ff79c6">.</span>make)  <span style="color:#6272a4"># 输出：Toyota</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用实例方法</span>
+</span></span><span style="display:flex;"><span>car<span style="color:#ff79c6">.</span>drive()  <span style="color:#6272a4"># 输出：Toyota Corolla is driving</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用特殊方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(car)  <span style="color:#6272a4"># 输出：Toyota Corolla</span>
+</span></span></code></pre></div><h3 id="5如何把日常生活中的事物抽象成程序中的类">5.如何把日常生活中的事物抽象成程序中的类?</h3>
+<p>把日常生活中的事物抽象成程序中的类需要考虑事物的属性和行为，并将其转化为类的属性和方法。</p>
+<p><strong>方法:</strong> 一般名词都是类(名词提炼法)</p>
+<p><strong>人类:</strong></p>
+<ul>
+<li>属性：名字、年龄、身高、体重、发型等。</li>
+<li>方法：跑、走、思考、吃饭等。</li>
+</ul>
+<p><strong>汽车:</strong></p>
+<ul>
+<li>属性：品牌、型号、颜色、速度、油量等。</li>
+<li>方法：启动、加速、刹车、加油等。</li>
+</ul>
+<p><strong>手机:</strong></p>
+<ul>
+<li>属性：品牌、型号、颜色、屏幕尺寸、电池电量等。</li>
+<li>方法：打电话、发短信、拍照、充电等。</li>
+</ul>
+<p><strong>动物:</strong></p>
+<ul>
+<li>属性：种类、年龄、体重、颜色等。</li>
+<li>方法：发出声音、移动、进食、休息等。</li>
+</ul>
+
 
                 
 
@@ -276,6 +330,11 @@
                             Previous Post</a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/PythonBase/41/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(二)">Next
+                            Post &rarr;</a>
+                    </li>
                     
                 </ul>
                 
@@ -337,6 +396,10 @@
                         </a>
                         
                         
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
                         
                         
                     </div>

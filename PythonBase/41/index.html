@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-oop.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-oop.jpg" />
+    
+
+    
+    <meta name="title" content="Python面向对象编程基础(二)" />
+    <meta property="og:title" content="Python面向对象编程基础(二)" />
+    <meta property="twitter:title" content="Python面向对象编程基础(二)" />
+    
+
+    
+    <meta name="description" content="介绍定义类的结构和如何创建使用类">
+    <meta property="og:description" content="介绍定义类的结构和如何创建使用类" />
+    <meta property="twitter:description" content="介绍定义类的结构和如何创建使用类" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+
+    
+    <meta name="baidu-site-verification" content="codeva-2v69K2Ip6V" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python面向对象编程基础(二) | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/41/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-oop.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonoop" title="PythonOOP">
+                            PythonOOP
+                        </a>
+                        
+                    </div>
+                    <h1>Python面向对象编程基础(二)</h1>
+                    <h2 class="subheading">类和对象的创建和使用</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Thursday, June 11, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一类的定义">一.类的定义</h2>
+<h3 id="1定义类的结构">1.定义类的结构</h3>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">类名</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 属性定义</span>
+</span></span><span style="display:flex;"><span>    属性1 <span style="color:#ff79c6">=</span> value1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 方法定义</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">方法</span>(self, parameters):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 方法实现</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">pass</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">greet</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Hello, my name is </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> and I am </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>age<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> years old.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建一个 Person 对象</span>
+</span></span><span style="display:flex;"><span>person1 <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用对象的方法</span>
+</span></span><span style="display:flex;"><span>person1<span style="color:#ff79c6">.</span>greet()  <span style="color:#6272a4"># 输出：Hello, my name is Alice and I am 30 years old.</span>
+</span></span></code></pre></div><h3 id="2新式类和旧式类">2.新式类和旧式类</h3>
+<p>在Python中，新式类和旧式类是两种不同的类的定义方式，主要区别在于它们的继承方式、方法解析顺序（Method Resolution Order，简称 MRO）、属性查找方式等。</p>
+<p>Python 2.x 中引入了新式类，Python 3.x 中只有新式类。</p>
+<p><strong>新式类(New-style Classes):</strong></p>
+<ul>
+<li>继承自 object 类或其子类的类被认为是新式类。</li>
+<li>拥有更好的多重继承支持，采用 C3 算法计算 MRO。</li>
+<li>在 Python 3.x 中，所有的类都是新式类。</li>
+</ul>
+<p><strong>旧式类(Old-style Classes):</strong></p>
+<ul>
+<li>不继承自 object 类的类被认为是旧式类。</li>
+<li>继承链的搜索顺序是深度优先搜索，而不是 C3 算法计算的 MRO。</li>
+<li>在 Python 2.x 中，如果不显式地继承自 object 类，则创建的类是旧式类。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 新式类的定义（Python 3.x 中的所有类都是新式类）</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">NewStyleClass</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 继承自 object 的类是新式类</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">AnotherNewStyleClass</span>(NewStyleClass):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 旧式类的定义（在 Python 2.x 中，未显式继承自 object 的类是旧式类）</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">OldStyleClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 旧式类的定义（在 Python 2.x 中，未显式继承自 object 的类是旧式类）</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">AnotherOldStyleClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>后续代码都是些新式类形式</p>
+</blockquote>
+<h2 id="二对象的创建">二.对象的创建</h2>
+<h3 id="1实例化对象">1.实例化对象</h3>
+<p>实例化是指根据类创建类的实例(对象)的过程。</p>
+<p>python中，可以根据已经定义的类去创建出一个或多个对象。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>对象名 <span style="color:#ff79c6">=</span> 类名()
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建一个 Person 对象</span>
+</span></span><span style="display:flex;"><span>person1 <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问对象的属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person1<span style="color:#ff79c6">.</span>name)  <span style="color:#6272a4"># 输出：Alice</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person1<span style="color:#ff79c6">.</span>age)   <span style="color:#6272a4"># 输出：30</span>
+</span></span></code></pre></div><h3 id="2添加对象的属性">2.添加对象的属性</h3>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>对象<span style="color:#ff79c6">.</span>需要添加的属性名 <span style="color:#ff79c6">=</span> 需要添加的属性值
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建一个 Person 对象</span>
+</span></span><span style="display:flex;"><span>person1 <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 添加对象属性</span>
+</span></span><span style="display:flex;"><span>person1<span style="color:#ff79c6">.</span>city <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;New York&#34;</span>
+</span></span><span style="display:flex;"><span>person1<span style="color:#ff79c6">.</span>gender <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Female&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问对象的属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person1<span style="color:#ff79c6">.</span>name)   <span style="color:#6272a4"># 输出：Alice</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person1<span style="color:#ff79c6">.</span>age)    <span style="color:#6272a4"># 输出：30</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person1<span style="color:#ff79c6">.</span>city)   <span style="color:#6272a4"># 输出：New York</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person1<span style="color:#ff79c6">.</span>gender) <span style="color:#6272a4"># 输出：Female</span>
+</span></span></code></pre></div><h3 id="3获取对象的属性">3.获取对象的属性</h3>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>属性 <span style="color:#ff79c6">=</span> 对象<span style="color:#ff79c6">.</span>需要获取的属性名
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建一个 Person 对象</span>
+</span></span><span style="display:flex;"><span>person1 <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 获取对象的属性</span>
+</span></span><span style="display:flex;"><span>name <span style="color:#ff79c6">=</span> person1<span style="color:#ff79c6">.</span>name
+</span></span><span style="display:flex;"><span>age <span style="color:#ff79c6">=</span> person1<span style="color:#ff79c6">.</span>age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 输出对象的属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Name:&#34;</span>, name)  <span style="color:#6272a4"># 输出：Name: Alice</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Age:&#34;</span>, age)    <span style="color:#6272a4"># 输出：Age: 30</span>
+</span></span></code></pre></div><h3 id="4类的内部创建和获取对象的属性">4.类的内部创建和获取对象的属性</h3>
+<p>在类的内部，可以通过 self 来获取当前对象的属性，并且可以使用 self 来创建新的对象属性。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">类名</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">方法</span>(self, parameters):
+</span></span><span style="display:flex;"><span>        对象的属性 <span style="color:#ff79c6">=</span> self<span style="color:#ff79c6">.</span>属性名  <span style="color:#6272a4"># 内部获取对象的属性</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>要添加的属性名 <span style="color:#ff79c6">=</span> 要添加的属性值  <span style="color:#6272a4"># 内部添加对象的属性</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_info</span>(self):
+</span></span><span style="display:flex;"><span>        info <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Name: </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">, Age: </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>age<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> info
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">greet</span>(self):
+</span></span><span style="display:flex;"><span>        greeting <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Hello, my name is </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">.&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> greeting
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">add_friend</span>(self, friend_name):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 创建一个新的对象属性</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>friend <span style="color:#ff79c6">=</span> friend_name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建一个 Person 对象</span>
+</span></span><span style="display:flex;"><span>person1 <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">30</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用对象的方法来获取属性和方法</span>
+</span></span><span style="display:flex;"><span>info <span style="color:#ff79c6">=</span> person1<span style="color:#ff79c6">.</span>get_info()
+</span></span><span style="display:flex;"><span>greeting <span style="color:#ff79c6">=</span> person1<span style="color:#ff79c6">.</span>greet()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 输出对象的属性信息和方法返回值</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(info)      <span style="color:#6272a4"># 输出：Name: Alice, Age: 30</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(greeting)  <span style="color:#6272a4"># 输出：Hello, my name is Alice.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用 add_friend() 方法来创建新的对象属性</span>
+</span></span><span style="display:flex;"><span>person1<span style="color:#ff79c6">.</span>add_friend(<span style="color:#f1fa8c">&#34;Bob&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 再次调用 get_info() 方法来获取更新后的属性信息</span>
+</span></span><span style="display:flex;"><span>updated_info <span style="color:#ff79c6">=</span> person1<span style="color:#ff79c6">.</span>get_info()
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(updated_info)  <span style="color:#6272a4"># 输出：Name: Alice, Age: 30</span>
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/40/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(一)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/42/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(三)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>
