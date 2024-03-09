@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-oop.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-oop.jpg" />
+    
+
+    
+    <meta name="title" content="Python面向对象编程基础(八)" />
+    <meta property="og:title" content="Python面向对象编程基础(八)" />
+    <meta property="twitter:title" content="Python面向对象编程基础(八)" />
+    
+
+    
+    <meta name="description" content="了解Python面向对象中魔法方法__new__，以及由其生成的单例设计模式">
+    <meta property="og:description" content="了解Python面向对象中魔法方法__new__，以及由其生成的单例设计模式" />
+    <meta property="twitter:description" content="了解Python面向对象中魔法方法__new__，以及由其生成的单例设计模式" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python面向对象编程基础(八) | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/47/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-oop.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonoop" title="PythonOOP">
+                            PythonOOP
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonpattern" title="PythonPattern">
+                            PythonPattern
+                        </a>
+                        
+                    </div>
+                    <h1>Python面向对象编程基础(八)</h1>
+                    <h2 class="subheading">魔法方法__new__</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Sunday, June 14, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一__new__方法">一.__new__方法</h2>
+<p><strong>概念:</strong> <code>__new__()</code> 方法是 Python 中用于创建对象实例的特殊方法之一。与 <code>__init__()</code> 方法不同，<code>__new__()</code> 方法是在对象实例化之前被调用的，用于创建对象实例。</p>
+<p>详细点说就是在使用 <code>对象=类名()</code>，创建对象时。python解释器首先会调用object基类提供的内置静态方法 <code>__new__()</code> 方法在内存中为对象分配空间，返回对象的引用，python的解释器获得对象的引用用后将引用作为第一个参数( <code>self</code> )传递给 <code>__init__()</code> 方法</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li>它是 <code>__init__()</code> 方法之前被调用的特殊方法。</li>
+<li>它负责创建对象实例，并返回该实例。</li>
+<li>通常用于自定义对象的创建过程，例如，定制对象的创建方式或者对创建的对象进行一些预处理。</li>
+</ul>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __new__(cls, <span style="color:#ff79c6">*</span>args, <span style="color:#ff79c6">**</span>kwargs):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 创建对象实例的逻辑</span>
+</span></span><span style="display:flex;"><span>        instance <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span>__new__(cls)
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 对创建的对象进行一些处理</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> instance
+</span></span></code></pre></div><p>在 <code>__new__()</code> 方法中，通常会调用父类的 <code>__new__()</code> 方法来创建对象实例，然后根据需要对创建的实例进行一些处理，并最终返回创建的实例。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">A</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;这是 init 方法&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __new__(cls):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;这是 new 方法&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">object</span><span style="color:#ff79c6">.</span>__new__(cls)  <span style="color:#6272a4"># 这边的object可以简化成super().__new__(cls)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A()
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>1.<code>__new__</code> 至少要有一个参数 <code>cls</code>，代表要实例化的类，此参数在实例化时由Python解释器自动提供</p>
+<p>2.<code>__new__</code> 必须要有返回值，返回实例化出来的实例，这点在自己实现 <code>__new__</code> 时要特别注意，可以return父类 <code>__new__</code> 出来的实例，或者直接是object的 <code>__new__</code> 出来的实例</p>
+<p>3.<code>__init__</code>有一个参数 <code>self</code>，就是这个 <code>__new__</code> 返回的实例， <code>__init__</code> 在 <code>__new__</code> 的基础上可以完成一些其它初始化的动作，<code>__init__</code> 不需要返回值</p>
+<p>4.我们可以将类比作制造商，<code>__new__</code> 方法就是前期的原材料购买环节，<code>__init__</code> 方法就是在有原材料的基础上，加工，初始化商品环节</p>
+</blockquote>
+<h2 id="二设计模式-单例设计模式">二.设计模式-单例设计模式</h2>
+<h3 id="1什么是设计模式">1.什么是设计模式</h3>
+<p>设计模式是软件工程中常用的一种解决问题的经验总结，它提供了一套被证明有效的解决方案，用于解决特定类型问题的重复出现。设计模式能够帮助开发人员更好地理解问题，并提供了一种通用的、经过验证的解决方案。</p>
+<p><strong>设计模式通常分为以下几类:</strong></p>
+<ul>
+<li><strong>创建型模式:</strong> 用于对象的创建和实例化，包括单例模式、工厂模式、抽象工厂模式等。</li>
+<li><strong>结构型模式:</strong> 用于描述如何组合类和对象以形成更大的结构，包括适配器模式、装饰器模式、代理模式等。</li>
+<li><strong>行为型模式:</strong> 用于描述对象之间的通信和职责分配，包括观察者模式、策略模式、模板方法模式等。</li>
+</ul>
+<h3 id="2单例设计模式">2.单例设计模式</h3>
+<p>单例设计模式是一种常见的创建型设计模式，用于确保类只有一个实例，并提供全局访问点。</p>
+<p><strong>概念:</strong> 单例设计模式确保一个类只有一个实例，并提供一个全局访问点来访问该实例。这意味着无论何时对该类进行实例化，都将获得相同的实例(即每次执行类名()返回的对象，内存地址时相同的)。单例模式通常用于需要全局访问点的情况，例如，配置管理器、数据库连接池、线程池等。</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li><strong>全局访问点:</strong> 提供了一个全局访问点来访问类的唯一实例。</li>
+<li><strong>节省资源:</strong> 避免了多次创建相同对象的开销，节省了系统资源。</li>
+</ul>
+<h4 id="21使用类变量实现单例模式">2.1.使用类变量实现单例模式</h4>
+<p>通过类变量存储唯一的实例，并提供一个静态方法来访问该实例</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Singleton</span>:
+</span></span><span style="display:flex;"><span>    _instance <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_instance</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> Singleton<span style="color:#ff79c6">.</span>_instance <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>            Singleton<span style="color:#ff79c6">.</span>_instance <span style="color:#ff79c6">=</span> Singleton()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> Singleton<span style="color:#ff79c6">.</span>_instance
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 使用单例</span>
+</span></span><span style="display:flex;"><span>instance1 <span style="color:#ff79c6">=</span> Singleton<span style="color:#ff79c6">.</span>get_instance()
+</span></span><span style="display:flex;"><span>instance2 <span style="color:#ff79c6">=</span> Singleton<span style="color:#ff79c6">.</span>get_instance()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(instance1 <span style="color:#ff79c6">is</span> instance2)  <span style="color:#6272a4"># 输出：True</span>
+</span></span></code></pre></div><h4 id="22重写__new__方法实现单例模式">2.2.重写__new__方法实现单例模式</h4>
+<p>重写 <code>__new__()</code> 方法，确保每次实例化时返回相同的实例。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Singleton</span>:
+</span></span><span style="display:flex;"><span>    _instance <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __new__(cls, <span style="color:#ff79c6">*</span>args, <span style="color:#ff79c6">**</span>kwargs):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> cls<span style="color:#ff79c6">.</span>_instance <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+</span></span><span style="display:flex;"><span>            cls<span style="color:#ff79c6">.</span>_instance <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span>__new__(cls, <span style="color:#ff79c6">*</span>args, <span style="color:#ff79c6">**</span>kwargs)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> cls<span style="color:#ff79c6">.</span>_instance
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 使用单例</span>
+</span></span><span style="display:flex;"><span>instance1 <span style="color:#ff79c6">=</span> Singleton()
+</span></span><span style="display:flex;"><span>instance2 <span style="color:#ff79c6">=</span> Singleton()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(instance1 <span style="color:#ff79c6">is</span> instance2)  <span style="color:#6272a4"># 输出：True</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>线程安全：在多线程环境中使用时需要考虑线程安全性，确保实例化过程是线程安全的。</p>
+<p>继承：在继承时可能会破坏单例模式，需要小心处理。</p>
+</blockquote>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/46/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(七)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

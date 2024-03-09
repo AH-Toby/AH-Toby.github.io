@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-oop.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-oop.jpg" />
+    
+
+    
+    <meta name="title" content="Python面向对象编程基础(六)" />
+    <meta property="og:title" content="Python面向对象编程基础(六)" />
+    <meta property="twitter:title" content="Python面向对象编程基础(六)" />
+    
+
+    
+    <meta name="description" content="介绍面向对象编程的三大特性之一的多态概念和使用">
+    <meta property="og:description" content="介绍面向对象编程的三大特性之一的多态概念和使用" />
+    <meta property="twitter:description" content="介绍面向对象编程的三大特性之一的多态概念和使用" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python面向对象编程基础(六) | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/45/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-oop.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonoop" title="PythonOOP">
+                            PythonOOP
+                        </a>
+                        
+                    </div>
+                    <h1>Python面向对象编程基础(六)</h1>
+                    <h2 class="subheading">多态(Polymorphism)</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Friday, June 12, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一什么是多态">一.什么是多态</h2>
+<p>多态是指相同的方法可以在不同的对象上表现出不同的行为，具体的行为取决于对象的类型。简而言之是不同的子类对象调用相同的父类方法，产生不同的执行结果，用于增加代码的外部调用灵活度</p>
+<p><strong>重要概念:</strong></p>
+<ul>
+<li>多态以 <code>继承</code> 和 <code>重写</code> <code>父类方法</code> 为前提</li>
+<li>多态是调用方法的技巧，不会影响到类的内部设计</li>
+</ul>
+<h2 id="二多态的格式总结">二.多态的格式总结</h2>
+<h3 id="1定义父类基类">1.定义父类（基类）</h3>
+<ul>
+<li>定义一个基类，包含一个或多个方法</li>
+<li>这些方法可以是抽象的，也可以包含默认实现</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Animal</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">pass</span>
+</span></span></code></pre></div><h3 id="2定义子类派生类">2.定义子类（派生类）</h3>
+<ul>
+<li>定义一个或多个子类，继承自父类。</li>
+<li>重写父类的方法，以实现特定的行为</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Dog</span>(Animal):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Woof!&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Cat</span>(Animal):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Meow!&#34;</span>
+</span></span></code></pre></div><h3 id="3调用多态的方法">3.调用多态的方法</h3>
+<ul>
+<li>创建子类的对象，并将其传递给接受父类对象的方法。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">make_animal_speak</span>(animal):
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(animal<span style="color:#ff79c6">.</span>speak())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dog <span style="color:#ff79c6">=</span> Dog()
+</span></span><span style="display:flex;"><span>cat <span style="color:#ff79c6">=</span> Cat()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>make_animal_speak(dog)  <span style="color:#6272a4"># 输出：Woof!</span>
+</span></span><span style="display:flex;"><span>make_animal_speak(cat)  <span style="color:#6272a4"># 输出：Meow!</span>
+</span></span></code></pre></div><p>在这个示例中，Animal 类是一个父类，Dog 和 Cat 类是子类。它们都继承了 Animal 类，并且重写了 speak() 方法。然后我们定义了一个函数 make_animal_speak()，它接受一个 Animal 类型的参数，并且调用该参数的 speak() 方法。</p>
+<p>当我们将一个 Dog 类型的对象传递给 make_animal_speak() 函数时，会调用 Dog 类中的 speak() 方法，输出 &ldquo;Woof!&quot;；而当传递一个 Cat 类型的对象时，会调用 Cat 类中的 speak() 方法，输出 &ldquo;Meow!&quot;。这就是多态性的体现，相同的方法在不同的对象上表现出不同的行为。</p>
+<h2 id="三多态的应用场景">三.多态的应用场景</h2>
+<ul>
+<li><strong>统一接口:</strong> 多态性可以通过统一的接口来处理不同的对象，从而实现代码的模块化和通用性。例如，通过定义一个统一的 draw() 方法来处理不同类型的图形对象，无需关心具体的图形类型。</li>
+<li><strong>插件化架构:</strong> 在软件开发中，经常需要支持插件化架构，允许用户通过加载插件来扩展软件功能。通过多态性，可以定义一组接口或者基类，并且允许用户编写不同的插件来实现这些接口或者继承这个基类，从而实现灵活的扩展。</li>
+<li><strong>处理集合对象:</strong> 在处理集合对象时，多态性可以让代码更加灵活，可以处理不同类型的集合对象。例如，可以定义一个通用的方法来处理列表、集合、字典等不同类型的集合对象，而无需编写不同的处理逻辑。</li>
+<li><strong>框架和库设计:</strong> 在设计框架和库时，多态性可以提供更加灵活和可扩展的接口，允许用户根据自己的需求进行定制。例如，许多 Web 框架提供了一组标准的接口或者基类，用户可以根据需要编写不同的处理器或者中间件来实现这些接口或者继承这些基类，从而定制框架的行为。</li>
+<li><strong>代码重构和抽象:</strong> 通过多态性，可以将代码进行重构和抽象，提高了代码的可读性和可维护性。例如，可以将一组具有相似功能的方法提取到一个抽象的父类中，并且让子类实现这些方法，从而实现代码的复用。</li>
+</ul>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/44/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(五)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/46/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(七)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

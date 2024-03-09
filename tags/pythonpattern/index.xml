@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PythonPattern on Toby Blog</title>
+    <link>http://localhost:1313/tags/pythonpattern/</link>
+    <description>Recent content in PythonPattern on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en_us</language>
+    <lastBuildDate>Sun, 14 Jun 2020 22:57:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/pythonpattern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python面向对象编程基础(八)</title>
+      <link>http://localhost:1313/PythonBase/47/</link>
+      <pubDate>Sun, 14 Jun 2020 22:57:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/47/</guid>
+      <description>一.__new__方法</description>
+    </item>
+  </channel>
+</rss>

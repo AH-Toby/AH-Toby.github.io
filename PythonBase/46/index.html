@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-oop.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-oop.jpg" />
+    
+
+    
+    <meta name="title" content="Python面向对象编程基础(七)" />
+    <meta property="og:title" content="Python面向对象编程基础(七)" />
+    <meta property="twitter:title" content="Python面向对象编程基础(七)" />
+    
+
+    
+    <meta name="description" content="深入Python对象编程：探讨类和对象的属性、方法不同">
+    <meta property="og:description" content="深入Python对象编程：探讨类和对象的属性、方法不同" />
+    <meta property="twitter:description" content="深入Python对象编程：探讨类和对象的属性、方法不同" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python面向对象编程基础(七) | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/46/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-oop.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonoop" title="PythonOOP">
+                            PythonOOP
+                        </a>
+                        
+                    </div>
+                    <h1>Python面向对象编程基础(七)</h1>
+                    <h2 class="subheading">实例和类的属性方法</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Sunday, June 14, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一实例对象和类对象">一.实例对象和类对象</h2>
+<h3 id="1实例对象instance-object">1.实例对象(Instance Object)</h3>
+<p><strong>概念:</strong> 通过类创建的对象</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li>实例对象是通过类对象实例化得到的对象，也称为类的实例。</li>
+<li>每个实例对象拥有自己的实例属性和方法，可以独立地进行操作。</li>
+<li>实例对象通常在程序运行时根据类对象进行创建，每次创建都会产生一个新的实例对象。</li>
+</ul>
+<h3 id="2类对象">2.类对象</h3>
+<p>在Python中，一切皆为对象，包括类也是对象。当我们定义一个类时，实际上是在内存中创建了一个类对象，这个类对象拥有自己的一些特性，例如类属性、方法等。</p>
+<p><strong>概念:</strong> 用于创建类的对象，定义类的模板</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li>类对象是在 Python 中用于创建类的对象，也称为类的模板。</li>
+<li>类对象包含了类的属性和方法的定义，可以被实例化为实例对象。</li>
+<li>类对象通常在程序运行时被创建，并且可以被多个实例对象共享。</li>
+</ul>
+<h2 id="二实例属性和类属性">二.实例属性和类属性</h2>
+<h3 id="1实例属性instance-attributes">1.实例属性(Instance Attributes)</h3>
+<p><strong>概念:</strong> 通过类创建的对象 又称为 <code>实例对象</code>, <code>实例对象的属性称为实例属性</code>，记录对象各自的数据，不同对象的同名实例属性，记录的数据可能各不相同</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li>实例属性是属于特定实例的属性，只能通过实例来访问和修改。</li>
+<li>每个实例可以拥有不同的实例属性值，彼此之间互不影响。</li>
+<li>实例属性通常在实例化对象时通过构造函数 <code>__init__()</code> 中初始化</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, instance_attribute):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>instance_attribute <span style="color:#ff79c6">=</span> instance_attribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建实例并初始化实例属性</span>
+</span></span><span style="display:flex;"><span>obj1 <span style="color:#ff79c6">=</span> MyClass(<span style="color:#f1fa8c">&#34;Instance attribute of obj1&#34;</span>)
+</span></span><span style="display:flex;"><span>obj2 <span style="color:#ff79c6">=</span> MyClass(<span style="color:#f1fa8c">&#34;Instance attribute of obj2&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问实例属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(obj1<span style="color:#ff79c6">.</span>instance_attribute)  <span style="color:#6272a4"># 输出：Instance attribute of obj1</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(obj2<span style="color:#ff79c6">.</span>instance_attribute)  <span style="color:#6272a4"># 输出：Instance attribute of obj2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 修改实例属性</span>
+</span></span><span style="display:flex;"><span>obj1<span style="color:#ff79c6">.</span>instance_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Modified instance attribute of obj1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(obj1<span style="color:#ff79c6">.</span>instance_attribute)  <span style="color:#6272a4"># 输出：Modified instance attribute of obj1</span>
+</span></span></code></pre></div><h3 id="2类属性class-attributes">2.类属性(Class Attributes)</h3>
+<p><strong>概念:</strong>  <code>类对象</code> 所拥有的属性被称为 <code>类属性</code>可以使用 <code>类对象</code> 或 <code>实例对象</code> 访问 <code>它被该类的所有实例对象所共有</code></p>
+<p><strong>特点:</strong></p>
+<ul>
+<li>类属性是定义在类中的属性，被所有该类的实例共享。</li>
+<li>类属性通常在类的定义中使用，但也可以在类的方法中通过类名访问和修改。</li>
+<li>当类的任何一个实例修改了类属性的值，其他实例的该属性也会受到影响。</li>
+<li>类属性通常用于描述类的特性或者保存所有实例共享的状态信息。</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    class_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;I am a class attribute&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问类属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(MyClass<span style="color:#ff79c6">.</span>class_attribute)  <span style="color:#6272a4"># 输出：I am a class attribute</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 修改类属性</span>
+</span></span><span style="display:flex;"><span>MyClass<span style="color:#ff79c6">.</span>class_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Modified class attribute&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(MyClass<span style="color:#ff79c6">.</span>class_attribute)  <span style="color:#6272a4"># 输出：Modified class attribute</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>实例属性要求每个对象为其单独开辟一份内存空间来记录数据，而类属性为全类所共有仅占用一份内存，更加节省内存空间。</p>
+</blockquote>
+<h2 id="三类属性使用注意">三.类属性使用注意</h2>
+<h3 id="1尽量避免类属性和对象属性同名">1.尽量避免类属性和对象属性同名</h3>
+<p><strong>注意:</strong> 如果有同名对象属性，实例对象会优先访问对象属性</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Class Attribute&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, attribute):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>attribute <span style="color:#ff79c6">=</span> attribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建实例对象</span>
+</span></span><span style="display:flex;"><span>obj <span style="color:#ff79c6">=</span> MyClass(<span style="color:#f1fa8c">&#34;Instance Attribute&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问对象属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(obj<span style="color:#ff79c6">.</span>attribute)  <span style="color:#6272a4"># 输出：Instance Attribute</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 访问类属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(MyClass<span style="color:#ff79c6">.</span>attribute)  <span style="color:#6272a4"># 输出：Class Attribute</span>
+</span></span></code></pre></div><h3 id="2类属性只能通过类对象修改">2.类属性只能通过类对象修改</h3>
+<p><strong>注意:</strong> 不能通过实例对象修改，以确保修改的是类属性而不是实例属性。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    class_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Class Attribute&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 通过类对象修改类属性</span>
+</span></span><span style="display:flex;"><span>MyClass<span style="color:#ff79c6">.</span>class_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Modified Class Attribute&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 通过实例对象访问类属性</span>
+</span></span><span style="display:flex;"><span>obj <span style="color:#ff79c6">=</span> MyClass()
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(obj<span style="color:#ff79c6">.</span>class_attribute)  <span style="color:#6272a4"># 输出：Modified Class Attribute</span>
+</span></span></code></pre></div><h3 id="3类属性不能直接设置为私有">3.类属性不能直接设置为私有</h3>
+<p><strong>注意:</strong> 类属性通常用于描述类的特性或者保存所有实例共享的状态信息，并且可以被所有该类的实例共享。因此，将类属性设置为私有属性通常没有意义，因为私有属性主要用于限制对实例属性的访问。</p>
+<p>虽然在 Python 中不能直接将类属性设置为私有属性，但是可以通过一些命名约定来模拟私有类属性，例如在属性名称前面添加一个下划线 <code>_</code> 。这样的命名约定会告诉其他开发者该属性应该被视为私有属性，不应该直接访问。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    _private_class_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Private Class Attribute&#34;</span>
+</span></span></code></pre></div><h2 id="四实例方法类方法和静态方法">四.实例方法、类方法和静态方法</h2>
+<h3 id="1实例方法instance-method">1.实例方法(Instance Method)</h3>
+<p><strong>概念:</strong> 实例对象的方法称为实例方法</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li>实例方法是定义在类中的方法，没有任何装饰器修饰。</li>
+<li>实例方法的第一个参数是 self，代表实例对象本身。</li>
+<li>实例方法可以访问和修改实例属性，也可以访问类属性。</li>
+<li>实例方法通常用于操作实例属性，以及对实例对象进行操作和处理。</li>
+</ul>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, instance_attribute):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>instance_attribute <span style="color:#ff79c6">=</span> instance_attribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">instance_method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> self<span style="color:#ff79c6">.</span>instance_attribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建实例对象</span>
+</span></span><span style="display:flex;"><span>obj <span style="color:#ff79c6">=</span> MyClass(<span style="color:#f1fa8c">&#34;Instance Attribute&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用实例方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(obj<span style="color:#ff79c6">.</span>instance_method())  <span style="color:#6272a4"># 输出：Instance Attribute</span>
+</span></span></code></pre></div><h3 id="2类方法class-method">2.类方法(Class Method)</h3>
+<p><strong>概念:</strong> 定义在类中的一种特殊方法，它与类相关联，而不是与类的实例对象相关联。类方法可以访问和修改类属性，但不能直接访问实例属性。它通常用于操作类本身和类属性，执行类级别的操作或者初始化操作。</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li><strong>装饰器:</strong> 类方法使用 @classmethod 装饰器来标识。</li>
+<li><strong>第一个参数:</strong> 类方法的第一个参数是 cls，表示类本身，而不是实例对象。</li>
+<li><strong>访问类属性:</strong> 类方法可以访问和修改类属性，因为它有一个指向类的参数。</li>
+<li><strong>无需实例化:</strong> 类方法可以直接通过类名来调用，而不需要实例化类对象。</li>
+<li><strong>初始化操作:</strong> 类方法通常用于执行类级别的初始化操作，或者在创建实例之前执行一些特殊的操作。</li>
+</ul>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    class_attribute <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Class Attribute&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @classmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">class_method</span>(cls, parameter1, parameter2):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 执行类方法的代码</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">pass</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Circle</span>:
+</span></span><span style="display:flex;"><span>    pi <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.14159</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, radius):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>radius <span style="color:#ff79c6">=</span> radius
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @classmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">from_diameter</span>(cls, diameter):
+</span></span><span style="display:flex;"><span>        radius <span style="color:#ff79c6">=</span> diameter <span style="color:#ff79c6">/</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> cls(radius)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> self<span style="color:#ff79c6">.</span>pi <span style="color:#ff79c6">*</span> self<span style="color:#ff79c6">.</span>radius <span style="color:#ff79c6">**</span> <span style="color:#bd93f9">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建 Circle 对象，通过直径创建</span>
+</span></span><span style="display:flex;"><span>circle1 <span style="color:#ff79c6">=</span> Circle<span style="color:#ff79c6">.</span>from_diameter(<span style="color:#bd93f9">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(circle1<span style="color:#ff79c6">.</span>area())  <span style="color:#6272a4"># 输出：78.53975</span>
+</span></span></code></pre></div><p>在这个示例中，我们定义了一个 Circle 类，它有一个类方法 from_diameter()，用于通过直径创建圆。在方法内部，我们计算出半径并返回一个新的 Circle 对象。通过类方法，我们可以方便地创建对象并执行其他类级别的操作，而不需要实例化类对象。</p>
+<h3 id="3静态方法static-method">3.静态方法(Static Method)</h3>
+<p><strong>概念:</strong> 定义在类中的一种特殊方法，它与类和类的实例对象都无关，可以独立地被调用。静态方法通常用于实现与类相关的功能，但不需要访问类属性或实例属性。</p>
+<p><strong>特点:</strong></p>
+<ul>
+<li><strong>装饰器:</strong> 静态方法使用 @staticmethod 装饰器来标识。</li>
+<li><strong>无需实例化:</strong> 静态方法可以直接通过类名来调用，而不需要实例化类对象。</li>
+<li><strong>无需类参数:</strong> 静态方法不需要额外的参数，不需要 self 或 cls 参数。</li>
+<li><strong>访问限制:</strong> 静态方法不能直接访问类属性或实例属性，因为它没有指向类或实例的参数。</li>
+</ul>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">static_method</span>(parameter1, parameter2):
+</span></span><span style="display:flex;"><span>        <span style="color:#6272a4"># 执行静态方法的代码</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">pass</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MathUtility</span>:
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">add</span>(x, y):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">+</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">subtract</span>(x, y):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> x <span style="color:#ff79c6">-</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用静态方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(MathUtility<span style="color:#ff79c6">.</span>add(<span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">3</span>))       <span style="color:#6272a4"># 输出：8</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(MathUtility<span style="color:#ff79c6">.</span>subtract(<span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">3</span>))  <span style="color:#6272a4"># 输出：2</span>
+</span></span></code></pre></div><p>在这个示例中，我们定义了一个 MathUtility 类，它包含了两个静态方法 add() 和 subtract()，用于执行加法和减法运算。这些静态方法可以直接通过类名来调用，而不需要实例化类对象，因为它们与类和实例对象无关。</p>
+<h2 id="五实例方法类方法和静态方法使用注意">五.实例方法,类方法和静态方法使用注意</h2>
+<h3 id="1选择合适的方法类型">1.选择合适的方法类型</h3>
+<p>根据方法需要操作的属性和行为，选择合适的方法类型</p>
+<ul>
+<li>实例方法：方法内部需要访问实例属性（实例方法内部可以使用类名.访问类属性）</li>
+<li>类方法：方法内部只需要访问类属性</li>
+<li>静态方法：方法内部不需要访问实例属性和内属性</li>
+<li>如果方法内部、既需要实例属性又要访问类属性应该使用实例方法，因为类只有一个，在实例方法内部可以使用类名.访问类属性</li>
+</ul>
+<h3 id="2避免混淆">2.避免混淆</h3>
+<p>在类中定义同名的实例方法、类方法和静态方法时，要注意调用时会 <code>优先执行最后定义的方法</code>，避免混淆和意外行为。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Instance Method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @classmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(cls):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Class Method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Static Method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建对象实例</span>
+</span></span><span style="display:flex;"><span>obj <span style="color:#ff79c6">=</span> MyClass()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用方法</span>
+</span></span><span style="display:flex;"><span>obj<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 输出：Static Method</span>
+</span></span></code></pre></div><p>应该修改为:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">instance_method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Instance Method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @classmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">class_method</span>(cls):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Class Method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @staticmethod
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">static_method</span>():
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Static Method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建对象实例</span>
+</span></span><span style="display:flex;"><span>obj <span style="color:#ff79c6">=</span> MyClass()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 调用方法</span>
+</span></span><span style="display:flex;"><span>obj<span style="color:#ff79c6">.</span>instance_method()  <span style="color:#6272a4"># 输出：Instance Method</span>
+</span></span><span style="display:flex;"><span>MyClass<span style="color:#ff79c6">.</span>class_method()  <span style="color:#6272a4"># 输出：Class Method</span>
+</span></span><span style="display:flex;"><span>MyClass<span style="color:#ff79c6">.</span>static_method()  <span style="color:#6272a4"># 输出：Static Method</span>
+</span></span></code></pre></div>
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/45/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(六)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/47/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(八)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

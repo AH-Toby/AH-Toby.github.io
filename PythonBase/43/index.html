@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-oop.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-oop.jpg" />
+    
+
+    
+    <meta name="title" content="Python面向对象编程基础(四)" />
+    <meta property="og:title" content="Python面向对象编程基础(四)" />
+    <meta property="twitter:title" content="Python面向对象编程基础(四)" />
+    
+
+    
+    <meta name="description" content="介绍面向对象编程的三大特性以及封装的概念和使用">
+    <meta property="og:description" content="介绍面向对象编程的三大特性以及封装的概念和使用" />
+    <meta property="twitter:description" content="介绍面向对象编程的三大特性以及封装的概念和使用" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python面向对象编程基础(四) | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/43/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-oop.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonoop" title="PythonOOP">
+                            PythonOOP
+                        </a>
+                        
+                    </div>
+                    <h1>Python面向对象编程基础(四)</h1>
+                    <h2 class="subheading">封装(Encapsulation)</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Friday, June 12, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一面向对象的三大特性">一.面向对象的三大特性</h2>
+<p><strong>封装(Encapsulation):</strong></p>
+<ul>
+<li>将数据和代码捆绑在一个对象中,对外部隐藏对象的内部细节,仅暴露必要的接口供外部访问。</li>
+<li>使用类来定义对象,通过定义类的属性和方法来实现封装。</li>
+<li>还可以通过访问控制(如public、protected、private)来限制数据和方法的访问权限。</li>
+</ul>
+<p><strong>继承(Inheritance):</strong></p>
+<ul>
+<li>一个类可以从另一个类继承其属性和方法,从而实现代码的重用。</li>
+<li>子类(派生类)可以继承父类(基类)的属性和方法,并可以添加自己的新属性和方法。</li>
+<li>多继承也是允许的,一个子类可以继承多个父类的属性和方法。</li>
+</ul>
+<p><strong>多态(Polymorphism):</strong></p>
+<ul>
+<li>指同一操作作用于不同对象,可以有不同的解释和不同的执行结果。</li>
+<li>通过方法重写和方法重载来实现多态性。</li>
+<li>方法重写是子类重新定义父类的方法,而方法重载是在同一个类中定义多个同名但参数不同的方法。</li>
+<li>Python没有方法重载,因为Python函数可以接受任意数量的参数。</li>
+</ul>
+<h2 id="二什么是封装">二.什么是封装</h2>
+<p>封装（Encapsulation）是面向对象编程的一个重要特性，它指的是将数据和操作封装在一个单独的实体（类）中，同时对外提供接口来访问和操作这些数据和操作。</p>
+<p><strong>作用:</strong> 将数据和相关的方法组合成一个独立的单元，通过接口来控制对数据的访问。这样可以隐藏数据的具体实现细节，提供一种保护机制，防止外部直接访问和修改对象的内部数据。</p>
+<h2 id="三实现封装的主要方法">三.实现封装的主要方法</h2>
+<h3 id="1使用类和对象">1.使用类和对象</h3>
+<p>这是最基本的封装方式,将数据和方法组合在一个类中,通过创建该类的对象来访问其中的数据和方法。例如:</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name  <span style="color:#6272a4"># 公有属性</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>_age <span style="color:#ff79c6">=</span> age   <span style="color:#6272a4"># 受保护属性,前缀单下划线</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">display</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Name: </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">, Age: </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>_age<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#ff79c6">.</span>display()  <span style="color:#6272a4"># 访问对象的方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(p<span style="color:#ff79c6">.</span>name)  <span style="color:#6272a4"># 访问公有属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># print(p._age)  # 受保护属性,不建议直接访问</span>
+</span></span></code></pre></div><h3 id="2使用私有属性和方法">2.使用私有属性和方法</h3>
+<p>所谓的私有属性和方法是指类特有属性和方法，外界对象不能访问。Python中没有像C++和Java中public 和 private 这些关键字来区别公有属性和私有属性。Python是以属性命名方式来区分，如果在属性和方法名前面加了2个下划线 <code>__</code>，则表明该属性和方法是私有权限，否则为公有权限。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>__属性名<span style="color:#ff79c6">/</span>方法名
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>__age <span style="color:#ff79c6">=</span> age  <span style="color:#6272a4"># 私有属性</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__display</span>(self):  <span style="color:#6272a4"># 私有方法</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Name: </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">, Age: </span><span style="color:#f1fa8c">{</span>self<span style="color:#ff79c6">.</span>__age<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">show</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>__display()  <span style="color:#6272a4"># 内部调用私有方法</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span>p<span style="color:#ff79c6">.</span>show()
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># print(p.__age)  # 错误,无法直接访问私有属性</span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># p.__display()  # 错误,无法直接访问私有方法</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>类的私有属性 和 私有方法，都不能通过对象直接访问，但是可以在本类内部访问；</p>
+<p>类的私有属性 和 私有方法，都不会被子类继承，子类也无法访问；</p>
+<p>私有属性 和 私有方法 往往用来处理类的内部事情，不通过对象处理，起到安全作用。</p>
+</blockquote>
+<h3 id="3修改私有属性的值">3.修改私有属性的值</h3>
+<p>在Python中,直接修改对象的私有属性是不被允许的,因为私有属性是对外部隐藏的。但是,仍然有方法可以间接修改私有属性的值。</p>
+<h4 id="31通过公有方法修改">3.1.通过公有方法修改</h4>
+<p>最常见的方式是通过类中定义的公有方法来修改私有属性的值。这种方式可以在方法中添加任何必要的逻辑或数据验证。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>__age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_age</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> self<span style="color:#ff79c6">.</span>__age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">set_age</span>(self, new_age):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> new_age <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#ff79c6">.</span>__age <span style="color:#ff79c6">=</span> new_age
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Invalid age!&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>person <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span>person<span style="color:#ff79c6">.</span>set_age(<span style="color:#bd93f9">30</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person<span style="color:#ff79c6">.</span>get_age())  <span style="color:#6272a4"># 输出: 30</span>
+</span></span></code></pre></div><p>上面的例子就是通过公共方法get_age和set_age来修改和获取私有属性的值</p>
+<h4 id="32通过属性property修改">3.2.通过属性(property)修改</h4>
+<p>使用@property装饰器定义getter和setter方法，可以像访问普通属性一样修改私有属性的值。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>__age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @property
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">age</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">return</span> self<span style="color:#ff79c6">.</span>__age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @age.setter
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">age</span>(self, new_age):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">if</span> new_age <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#ff79c6">.</span>__age <span style="color:#ff79c6">=</span> new_age
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Invalid age!&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>person <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span>person<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">30</span>  <span style="color:#6272a4"># 相当于:person.age(30)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person<span style="color:#ff79c6">.</span>age)  <span style="color:#6272a4"># 输出: 30 # 相当于:print(person.age)</span>
+</span></span></code></pre></div><h4 id="33通过名称重整name-mangling修改">3.3.通过名称重整(Name Mangling)修改</h4>
+<p><strong>伪私有属性和私有方法:</strong> Python在编译时会自动重命名带有双下划线前缀的私有属性,以避免与子类中的同名属性发生冲突。通过这种机制,我们可以直接访问和修改私有属性(不推荐这种做法,因为破坏了封装)。这种方式就导致了Python的私有方法和属性不是真正意义上的私有而是伪私有的。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>对象名<span style="color:#ff79c6">.</span>_类名__私有名称<span style="color:#ff79c6">/</span>方法名称
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Person</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, age):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>__age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>person <span style="color:#ff79c6">=</span> Person(<span style="color:#f1fa8c">&#34;Alice&#34;</span>, <span style="color:#bd93f9">25</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person<span style="color:#ff79c6">.</span>_Person__age)  <span style="color:#6272a4"># 输出: 25</span>
+</span></span><span style="display:flex;"><span>person<span style="color:#ff79c6">.</span>_Person__age <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">30</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(person<span style="color:#ff79c6">.</span>_Person__age)  <span style="color:#6272a4"># 输出: 30</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意:</strong></p>
+<p>直接修改私有属性的值容易破坏封装,应该尽量避免这种做法。推荐的方式是通过公有方法或属性(property)来间接修改私有属性的值,这样可以在修改时添加必要的逻辑和数据验证。</p>
+</blockquote>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/42/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(三)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/44/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(五)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

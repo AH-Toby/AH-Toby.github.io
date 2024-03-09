@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DataTypes on Toby Blog</title>
-    <link>https://blog.tobyblogs.cn/tags/datatypes/</link>
+    <link>http://localhost:1313/tags/datatypes/</link>
     <description>Recent content in DataTypes on Toby Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-hans</language>
+    <language>en_us</language>
     <lastBuildDate>Wed, 10 Jun 2020 15:44:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.tobyblogs.cn/tags/datatypes/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/datatypes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Python奇技淫巧(二)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/37/</link>
+      <link>http://localhost:1313/PythonBase/37/</link>
       <pubDate>Wed, 10 Jun 2020 15:44:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/37/</guid>
+      <guid>http://localhost:1313/PythonBase/37/</guid>
       <description>一.集合(set) 集合(set)是一种无序、可变的数据类型，用于存储唯一的元素。集合中的元素是无序排列的，并且不能重复。集合通常用于存储无序</description>
     </item>
     <item>
       <title>Python奇技淫巧(一)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/36/</link>
+      <link>http://localhost:1313/PythonBase/36/</link>
       <pubDate>Wed, 10 Jun 2020 14:30:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/36/</guid>
+      <guid>http://localhost:1313/PythonBase/36/</guid>
       <description>一.推导式 推导式（comprehension）是Python中一种简洁而强大的语法，用于快速生成列表、字典和集合等数据结构。推导式允许在一行</description>
     </item>
     <item>
       <title>Python基本数据类型(六)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/26/</link>
+      <link>http://localhost:1313/PythonBase/26/</link>
       <pubDate>Wed, 03 Jun 2020 16:21:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/26/</guid>
+      <guid>http://localhost:1313/PythonBase/26/</guid>
       <description>一.公共运算符 运算符 Python 表达式 结果 描述 支持的数据类型 + [1, 2] + [3, 4] [1, 2, 3, 4] 合并 字符串、列表、元组 * [&amp;lsquo;Hi!&amp;rsquo;] * 4 [&amp;lsquo;Hi!&amp;rsquo;, &amp;lsquo;Hi!&amp;rsquo;, &amp;lsquo;Hi!&amp;rsquo;, &amp;lsquo;Hi!&amp;rsquo;] 复制 字符串、列表、元组 in 3 in (1, 2,</description>
     </item>
     <item>
       <title>Python基本数据类型(五)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/25/</link>
+      <link>http://localhost:1313/PythonBase/25/</link>
       <pubDate>Wed, 03 Jun 2020 15:46:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/25/</guid>
+      <guid>http://localhost:1313/PythonBase/25/</guid>
       <description>一.什么是字典 作用: 由键-值对组成的数据, 用于以键值对的方式存储数据 结构: {key:value} 说明: 1.字典和列表一样，也能够存储多个数据 2.列表中找某个元素</description>
     </item>
     <item>
       <title>Python基本数据类型(四)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/24/</link>
+      <link>http://localhost:1313/PythonBase/24/</link>
       <pubDate>Wed, 03 Jun 2020 15:40:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/24/</guid>
+      <guid>http://localhost:1313/PythonBase/24/</guid>
       <description>一.什么是元组 Python的元组与列表类似，不同之处在于 元组的元素不能修改, 元组使用小括号，列表使用方括号。 结构: (value1,value2,value3,...) demo: &amp;gt;&amp;gt;&amp;gt; aTuple = (&amp;#39;et&amp;#39;,77,99.9) &amp;gt;&amp;gt;&amp;gt; aTuple (&amp;#39;et&amp;#39;,77,99.9) 二.查看</description>
     </item>
     <item>
       <title>Python基本数据类型(三)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/23/</link>
+      <link>http://localhost:1313/PythonBase/23/</link>
       <pubDate>Wed, 03 Jun 2020 15:04:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/23/</guid>
+      <guid>http://localhost:1313/PythonBase/23/</guid>
       <description>一.什么是列表 作用: 列表是用来存储大量数据的容器 结构: [value1,value2,value3,...] 注意: python列表中存储的数据可以是不同的数据类型 二.列表的常见操作 1.增加元素</description>
     </item>
     <item>
       <title>Python基本数据类型(二)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/22/</link>
+      <link>http://localhost:1313/PythonBase/22/</link>
       <pubDate>Tue, 02 Jun 2020 15:29:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/22/</guid>
+      <guid>http://localhost:1313/PythonBase/22/</guid>
       <description>一.find 作用: 检测 str 是否包含在 mystr中，如果是返回开始的索引值，否则返回-1 结构: mystr.find(str, start=0, end=len(mystr)) demo: mystr = &amp;#34;hello world&amp;#34; mystr.find(&amp;#34;wo&amp;#34;) 运行结果: 6 二.index 作用:</description>
     </item>
     <item>
       <title>Python基本数据类型(一)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/21/</link>
+      <link>http://localhost:1313/PythonBase/21/</link>
       <pubDate>Tue, 02 Jun 2020 15:13:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/21/</guid>
+      <guid>http://localhost:1313/PythonBase/21/</guid>
       <description>一.字符串介绍 被一对双引号或者单引号包裹的数据就是字符串 结构: a = &amp;#34;字符串&amp;#34; a = &amp;#39;字符串&amp;#39; a = &amp;#34;&amp;#</description>
     </item>
     <item>
       <title>Python基础知识(十)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/10/</link>
+      <link>http://localhost:1313/PythonBase/10/</link>
       <pubDate>Fri, 29 May 2020 14:47:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/10/</guid>
+      <guid>http://localhost:1313/PythonBase/10/</guid>
       <description>一.数据类型转换 函数 说明 int(x [,base ]) 将x转换为一个整数 float(x ) 将x转换为一个浮点数 complex(real [,imag ]) 创建一个复数，real为实部，imag为虚部 str(x ) 将对象 x 转换为</description>
     </item>
     <item>
       <title>Python基础知识(五)</title>
-      <link>https://blog.tobyblogs.cn/PythonBase/5/</link>
+      <link>http://localhost:1313/PythonBase/5/</link>
       <pubDate>Wed, 27 May 2020 12:32:00 +0000</pubDate>
-      <guid>https://blog.tobyblogs.cn/PythonBase/5/</guid>
+      <guid>http://localhost:1313/PythonBase/5/</guid>
       <description>一.什么是变量 变量是存放数据值的容器， 程序就是用来处理数据的，而变量就是用来存储数据的 二.数据类型 为了更充分的利用内存空间以及更有效率的管理</description>
     </item>
   </channel>

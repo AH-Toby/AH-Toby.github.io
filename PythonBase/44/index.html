@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-oop.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-oop.jpg" />
+    
+
+    
+    <meta name="title" content="Python面向对象编程基础(五)" />
+    <meta property="og:title" content="Python面向对象编程基础(五)" />
+    <meta property="twitter:title" content="Python面向对象编程基础(五)" />
+    
+
+    
+    <meta name="description" content="介绍面向对象编程的三大特性之一的继承概念和使用">
+    <meta property="og:description" content="介绍面向对象编程的三大特性之一的继承概念和使用" />
+    <meta property="twitter:description" content="介绍面向对象编程的三大特性之一的继承概念和使用" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python面向对象编程基础(五) | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/44/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-oop.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonoop" title="PythonOOP">
+                            PythonOOP
+                        </a>
+                        
+                    </div>
+                    <h1>Python面向对象编程基础(五)</h1>
+                    <h2 class="subheading">继承(Inheritance)</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Friday, June 12, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一什么是继承">一.什么是继承</h2>
+<p><strong>生活中:</strong> 继承的含义一般是子女继承父辈的财产。</p>
+<p><strong>程序中:</strong> 继承(Inheritance)是指,允许一个类(子类或派生类)继承另一个类(父类或基类)的属性和方法。通过继承,可以实现代码的重用和扩展,提高了软件的可重用性和可维护性。</p>
+<p><strong>在面向对象编程中:</strong> 继承主要有三种类型:单继承(Single Inheritance)、多继承(Multiple Inheritance)和多级继承(Multilevel Inheritance)。</p>
+<p><strong>重要概念:</strong></p>
+<ul>
+<li><strong>父类(基类):</strong> 是已经定义好的类,它可以包含数据(属性)和行为(方法)</li>
+<li><strong>子类(派生类):</strong> 是从父类继承而来的新类,它可以继承父类的属性和方法</li>
+<li><strong>子类和父类的关系:</strong> 子类还可以添加自己的新属性和方法,或者重写(覆盖)继承自父类的方法。</li>
+</ul>
+<p>简而言之，在程序中，继承描述的是多个类之间的所属关系，如果一个类A里面的属性和方法可以复用，则可以通过继承的方式，传递到类B里。那么类A就是基类(父类)；类B就是派生类(子类)</p>
+<h2 id="二单继承single-inheritance">二.单继承(Single Inheritance)</h2>
+<p>是指一个子类只能继承一个父类。这种继承方式是最简单、最常见的继承形式。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">子类名</span>(父类名):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 子类的属性和方法</span>
+</span></span></code></pre></div><p><strong>demo：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 定义父类</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Animal</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;The animal speaks&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 定义子类Dog,继承自Animal类</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Dog</span>(Animal):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建Dog对象并调用方法</span>
+</span></span><span style="display:flex;"><span>dog <span style="color:#ff79c6">=</span> Dog(<span style="color:#f1fa8c">&#34;Buddy&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(dog<span style="color:#ff79c6">.</span>name)  <span style="color:#6272a4"># 输出: Buddy</span>
+</span></span><span style="display:flex;"><span>dog<span style="color:#ff79c6">.</span>speak()  <span style="color:#6272a4"># 输出: The animal speaks</span>
+</span></span></code></pre></div><p>虽然子类 <code>Dog</code> 没有定义 <code>__init__</code> 方法初始化属性，也没有定义实例方法 <code>speak</code> ，但是可以直接可以从父类中继承过来。</p>
+<h2 id="三多继承multiple-inheritance">三.多继承(Multiple Inheritance)</h2>
+<h3 id="1多继承作用和结构">1.多继承作用和结构</h3>
+<p>是指一个子类可以同时继承多个父类的属性和方法。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">子类名</span>(父类1, 父类2, <span style="color:#ff79c6">...</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 子类的属性和方法</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Animal</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;The animal speaks&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Flyable</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">fly</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;I can fly&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Bird</span>(Animal, Flyable):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bird <span style="color:#ff79c6">=</span> Bird(<span style="color:#f1fa8c">&#34;Parrot&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(bird<span style="color:#ff79c6">.</span>name)  <span style="color:#6272a4"># 输出: Parrot</span>
+</span></span><span style="display:flex;"><span>bird<span style="color:#ff79c6">.</span>speak()  <span style="color:#6272a4"># 输出: The animal speaks</span>
+</span></span><span style="display:flex;"><span>bird<span style="color:#ff79c6">.</span>fly()  <span style="color:#6272a4"># 输出: I can fly</span>
+</span></span></code></pre></div><h3 id="2多继承可能会引发下列的问题">2.多继承可能会引发下列的问题</h3>
+<h4 id="21菱形继承问题diamond-inheritance-problem">2.1.菱形继承问题(Diamond Inheritance Problem)</h4>
+<p>当一个类继承自两个其他类，而这两个类又继承自同一个祖先类时，就形成了一个菱形结构。这可能导致属性和方法的重复继承,引发歧义和冲突。</p>
+<p><strong>解决方法:</strong> Python采用了深度优先的方法解析顺序(MRO)来解决这个问题,但仍需要格外小心。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">A</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;A method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">B</span>(A):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;B method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">C</span>(A):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;C method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">D</span>(B, C):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d <span style="color:#ff79c6">=</span> D()
+</span></span><span style="display:flex;"><span>d<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 输出结果取决于方法的解析顺序</span>
+</span></span></code></pre></div><h4 id="22命名冲突name-clashes">2.2.命名冲突(Name Clashes)</h4>
+<p>当多个父类中有相同名称的属性或方法时，子类可能无法准确确定应该使用哪一个。这可能导致意外行为或错误。</p>
+<p><strong>解决方法:</strong> 在子类中必须显式重写这个方法,否则会引发歧义。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">A</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;A method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">B</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;B method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">C</span>(A, B):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c <span style="color:#ff79c6">=</span> C()
+</span></span><span style="display:flex;"><span>c<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 可能会引发冲突或者输出不符合预期的结果</span>
+</span></span></code></pre></div><h4 id="23显示调用父类构造函数">2.3.显示调用父类构造函数</h4>
+<p>在 Python 中，如果一个子类继承自多个父类（多重继承），通常情况下子类的构造函数应该显式调用所有父类的构造函数，以确保父类的属性和方法得以正确初始化。这是因为每个父类可能有自己的初始化逻辑，如果不显式调用所有父类的构造函数，可能会导致部分父类的初始化代码未执行，从而导致意料之外的行为或错误。</p>
+<p>在 Python中，可以使用 <code>super()</code> 函数来调用父类的构造函数。<code>super()</code> 函数会动态查找方法解析顺序(Method Resolution Order，MRO)，确保按照正确的顺序调用父类的构造函数。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent1</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Parent1 constructor&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent2</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Parent2 constructor&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Child</span>(Parent1, Parent2):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span>__init__()  <span style="color:#6272a4"># 显式调用第一个父类的构造函数</span>
+</span></span><span style="display:flex;"><span>        Parent2<span style="color:#ff79c6">.</span>__init__(self)  <span style="color:#6272a4"># 显式调用第二个父类的构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Child constructor&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>child <span style="color:#ff79c6">=</span> Child()
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>Parent1 constructor
+</span></span><span style="display:flex;"><span>Parent2 constructor
+</span></span><span style="display:flex;"><span>Child constructor
+</span></span></code></pre></div><h4 id="24可读性和可维护性降低">2.4.可读性和可维护性降低</h4>
+<p>多继承会增加代码的复杂性,可能导致可读性和可维护性降低。过度使用多继承可能使代码变得难以理解和修改。</p>
+<h4 id="25mixin-的使用不当">2.5.Mixin 的使用不当</h4>
+<p>Mixin 是一种设计模式，用于在类之间共享方法和属性。但是，如果过度使用 Mixin 或者 Mixin 的设计不当，可能会导致类之间的耦合性增加，使代码更加脆弱和难以理解。</p>
+<h2 id="四__mro__方法">四.__mro__方法</h2>
+<p><strong>作用:</strong> 方法是 Python 中用于获取类的方法解析顺序（Method Resolution Order，MRO）的特殊方法。MRO 定义了在多继承情况下，Python 解释器查找方法和属性的顺序。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">A</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">B</span>(A):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">C</span>(A):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">D</span>(B, C):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(D<span style="color:#ff79c6">.</span>__mro__)
+</span></span></code></pre></div><p><strong>运行结果:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>(<span style="color:#ff79c6">&lt;</span><span style="color:#ff79c6">class</span> &#39;<span style="color:#50fa7b">__main__</span><span style="color:#ff79c6">.</span>D<span style="color:#f1fa8c">&#39;&gt;, &lt;class &#39;</span>__main__<span style="color:#ff79c6">.</span><span style="color:#f1fa8c">B</span><span style="color:#f1fa8c">&#39;&gt;, &lt;class &#39;</span>__main__<span style="color:#ff79c6">.</span>C<span style="color:#f1fa8c">&#39;&gt;, &lt;class &#39;</span>__main__<span style="color:#ff79c6">.</span>A<span style="color:#f1fa8c">&#39;&gt;, &lt;class &#39;</span><span style="color:#8be9fd;font-style:italic">object</span><span style="color:#f1fa8c">&#39;&gt;)</span>
+</span></span></code></pre></div><p>在这个示例中，D 类的方法解析顺序依次为 D, B, C, A, object。这意味着在搜索方法时，Python 解释器会先在 D 类中查找，然后依次在 B, C, A 类中查找，最后在 object 类中查找。</p>
+<blockquote>
+<p><strong>注意:</strong></p>
+<p>如果多个父类中有同名的 属性和方法，则默认使用第一个父类的属性和方法（根据类的魔法属性mro的顺序来查找）</p>
+</blockquote>
+<h2 id="五多级继承multilevel-inheritance">五.多级继承(Multilevel Inheritance)</h2>
+<p>是指一个子类继承自另一个子类,形成了一个继承链。在多级继承中,特性和行为沿着继承链向下传递。</p>
+<p><strong>结构:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">基类</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 基类的属性和方法</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">派生类1</span>(基类):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 派生类1的属性和方法</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">派生类2</span>(派生类1):
+</span></span><span style="display:flex;"><span>    <span style="color:#6272a4"># 派生类2的属性和方法</span>
+</span></span></code></pre></div><p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Animal</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>name <span style="color:#ff79c6">=</span> name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;The animal speaks&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Dog</span>(Animal):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, breed):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span>__init__(name)
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>breed <span style="color:#ff79c6">=</span> breed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">bark</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;The dog barks&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Puppy</span>(Dog):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self, name, breed, age):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span>__init__(name, breed)
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>age <span style="color:#ff79c6">=</span> age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">speak</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;The puppy barks cutely&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># 创建实例</span>
+</span></span><span style="display:flex;"><span>puppy <span style="color:#ff79c6">=</span> Puppy(<span style="color:#f1fa8c">&#34;Buddy&#34;</span>, <span style="color:#f1fa8c">&#34;Labrador&#34;</span>, <span style="color:#bd93f9">3</span>)
+</span></span><span style="display:flex;"><span>puppy<span style="color:#ff79c6">.</span>speak()  <span style="color:#6272a4"># 输出: The puppy barks cutely</span>
+</span></span><span style="display:flex;"><span>puppy<span style="color:#ff79c6">.</span>bark()  <span style="color:#6272a4"># 输出: The dog barks</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(puppy<span style="color:#ff79c6">.</span>name)  <span style="color:#6272a4"># 输出: Buddy</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(puppy<span style="color:#ff79c6">.</span>breed)  <span style="color:#6272a4"># 输出: Labrador</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(puppy<span style="color:#ff79c6">.</span>age)  <span style="color:#6272a4"># 输出: 3</span>
+</span></span></code></pre></div><p>在上面的示例中:<code>Animal</code>是基类,定义了<code>name</code>属性和<code>speak()</code>方法。<code>Dog</code>是派生类,继承自<code>Animal</code>类。它添加了<code>breed</code>属性和<code>bark()</code>方法,同时重写了<code>__init__</code>方法来初始化从基类继承的<code>name</code>属性。<code>Puppy</code>是另一个派生类,继承自<code>Dog</code>类。它添加了<code>age</code>属性,并重写了<code>speak()</code>方法。创建了一个<code>Puppy</code>实例,可以访问从<code>Animal</code>继承的<code>name</code>属性,从<code>Dog</code>继承的<code>breed</code>属性和<code>bark()</code>方法,以及自身的<code>age</code>属性和重写的<code>speak()</code>方法。</p>
+<p><strong>注意:</strong></p>
+<blockquote>
+<p>多级继承的优点是可以充分地代码重用,形成一个清晰的类层次结构。但是,如果继承链过长,代码可能会变得难以阅读和维护。此外,多级继承也可能引入类似于多重继承的一些潜在问题,如菱形继承问题等。</p>
+</blockquote>
+<h2 id="六子类重写父类的同名方法和属性">六.子类重写父类的同名方法和属性</h2>
+<p><strong>场景:</strong> 允许子类在不改变父类行为的情况下重写父类的属性和方法，修改或者添加新的行为，提供了灵活性和可扩展性。</p>
+<p><strong>操作方法:</strong> 如果子类和父类的方法名和属性名相同，则默认使用子类的</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>value <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Parent&#39;s value&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">say_hello</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Hello from Parent&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Child</span>(Parent):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#ff79c6">.</span>value <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Child&#39;s value&#34;</span>  <span style="color:#6272a4"># 重写父类的属性</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">say_hello</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Hello from Child&#34;</span>)  <span style="color:#6272a4"># 重写父类的方法</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>parent <span style="color:#ff79c6">=</span> Parent()
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(parent<span style="color:#ff79c6">.</span>value)  <span style="color:#6272a4"># 输出：Parent&#39;s value</span>
+</span></span><span style="display:flex;"><span>parent<span style="color:#ff79c6">.</span>say_hello()  <span style="color:#6272a4"># 输出：Hello from Parent</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>child <span style="color:#ff79c6">=</span> Child()
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(child<span style="color:#ff79c6">.</span>value)  <span style="color:#6272a4"># 输出：Child&#39;s value，子类重写了父类的属性</span>
+</span></span><span style="display:flex;"><span>child<span style="color:#ff79c6">.</span>say_hello()  <span style="color:#6272a4"># 输出：Hello from Child，子类重写了父类的方法</span>
+</span></span></code></pre></div><p>在这个示例中，Parent 类有一个 value 属性和一个 say_hello 方法。Child 类继承了 Parent 类，并且重写了父类的 value 属性和 say_hello 方法。当创建 Parent 和 Child 类的实例并调用它们的方法时，可以看到子类重写父类的属性和方法的效果。</p>
+<h2 id="七子类调用父类同名属性和方法">七.子类调用父类同名属性和方法</h2>
+<p><strong>场景:</strong> 当子类和父类拥有同名属性或方法时，如何在子类中调用父类的同名属性或方法</p>
+<p>以下两种方法都可以在子类中调用父类的属性和方法</p>
+<h3 id="1使用父类类名父类方法self">1.使用父类类名.父类方法(self)</h3>
+<p><strong>好处:</strong></p>
+<ol>
+<li>这种方式直接指定了父类的类名，可以明确地调用父类的方法。</li>
+<li>适用于单继承的情况，或者在多继承中明确知道要调用哪个父类的方法。</li>
+<li>在多继承情况下，如果知道要调用的是哪个父类的方法，并且确定不会出现方法解析顺序（MRO）的问题，可以选择使用这种方式。</li>
+</ol>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Parent method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Child</span>(Parent):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        Parent<span style="color:#ff79c6">.</span>method(self)  <span style="color:#6272a4"># 调用父类的方法</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Child method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>child <span style="color:#ff79c6">=</span> Child()
+</span></span><span style="display:flex;"><span>child<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 输出：</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># Parent method</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># Child method</span>
+</span></span></code></pre></div><h3 id="2通过-super-方法">2.通过 super() 方法</h3>
+<p><strong>好处:</strong></p>
+<ol>
+<li>super() 是一个特殊的函数，用于动态地获取父类，可以自动处理方法解析顺序（MRO）。</li>
+<li>在多重继承的情况下，super() 更加灵活，可以确保调用方法的正确版本，而不需要硬编码父类的类名。</li>
+<li>适用于多继承的情况，特别是当父类的类名可能会发生变化时，使用 super() 更加安全。</li>
+</ol>
+<p>在 Python 中，super() 可以在两种形式下使用：</p>
+<h4 id="21无参数形式的-super">2.1.无参数形式的 super()</h4>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Parent method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Child</span>(Parent):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>()<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 调用父类的方法</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>child <span style="color:#ff79c6">=</span> Child()
+</span></span><span style="display:flex;"><span>child<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 输出：Parent method</span>
+</span></span></code></pre></div><h4 id="22指定类和实例的-super">2.2.指定类和实例的 super()</h4>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent1</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Parent1 method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Parent2</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Parent2 method&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Child</span>(Parent1, Parent2):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">method</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>(Parent1, self)<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 调用 Parent1 类的方法</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">super</span>(Parent2, self)<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 调用 Parent2 类的方法</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>child <span style="color:#ff79c6">=</span> Child()
+</span></span><span style="display:flex;"><span>child<span style="color:#ff79c6">.</span>method()  <span style="color:#6272a4"># 输出：</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># Parent1 method</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#6272a4"># Parent2 method</span>
+</span></span></code></pre></div><p>在这两个示例中，super() 方法被用来调用父类的方法，第一个示例中的 super() 使用了无参数形式，而第二个示例中的 super() 则指定了类和实例</p>
+<p>总的来说，对于单继承的情况，直接使用父类类名来调用父类的方法可能更加清晰明了；而对于多继承的情况，尤其是在涉及到多个父类、可能会更改父类结构或者需要考虑方法解析顺序的情况下，推荐使用 super()。 super() 也有助于提高代码的可维护性和可扩展性。</p>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/43/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(四)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonBase/45/" data-toggle="tooltip" data-placement="top" title="Python面向对象编程基础(六)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>
