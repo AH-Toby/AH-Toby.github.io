@@ -6,14 +6,42 @@
     <description>Recent content in Posts on Toby Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_us</language>
-    <lastBuildDate>Sun, 14 Jun 2020 22:57:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jul 2023 19:30:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Poetry中文翻译(一)</title>
+      <link>http://localhost:1313/PoetryCn/1/</link>
+      <pubDate>Tue, 04 Jul 2023 19:30:00 +0000</pubDate>
+      <guid>http://localhost:1313/PoetryCn/1/</guid>
+      <description>Poetry是Python中用于管理依赖和打包的工具，支持您声明项目所需的库并负责管理其安装和更新。它提供锁定文件用于构建版本和发布项目以确</description>
+    </item>
+    <item>
+      <title>Python高级提升代码技巧</title>
+      <link>http://localhost:1313/PythonAdvance/1/</link>
+      <pubDate>Thu, 17 Nov 2022 13:39:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonAdvance/1/</guid>
+      <description>一.构建Python项目 首先关注目录结构、文件命名和模块组织。 我建议你将所有的模块文件放在一个名为&amp;quot;src&amp;quot;的目录中，而</description>
+    </item>
+    <item>
+      <title>Python模块和包</title>
+      <link>http://localhost:1313/PythonBase/49/</link>
+      <pubDate>Mon, 15 Jun 2020 14:47:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/49/</guid>
+      <description>一.模块(Module) 定义: 模块是一个包含 Python 代码的文件，通常以 .py 扩展名结尾。它可以包含变量、函数、类等Python代码。 作用: 模块提供了一</description>
+    </item>
+    <item>
+      <title>Python异常</title>
+      <link>http://localhost:1313/PythonBase/48/</link>
+      <pubDate>Sun, 14 Jun 2020 23:39:00 +0000</pubDate>
+      <guid>http://localhost:1313/PythonBase/48/</guid>
+      <description>一.异常(Exception) 异常(Exception)是指程序在运行过程中遇到的错误或异常情况，导致程序无法继续正常执行的情况。 分类: 内置</description>
+    </item>
     <item>
       <title>Python面向对象编程基础(八)</title>
       <link>http://localhost:1313/PythonBase/47/</link>
       <pubDate>Sun, 14 Jun 2020 22:57:00 +0000</pubDate>
       <guid>http://localhost:1313/PythonBase/47/</guid>
-      <description>一.__new__方法</description>
+      <description>一.__new__方法 概念: __new__() 方法是 Python 中用于创建对象实例的特殊方法之一。与 __init__() 方法不同，__new__() 方法是在对象实例化之前被调用的，用于</description>
     </item>
     <item>
       <title>Python面向对象编程基础(七)</title>

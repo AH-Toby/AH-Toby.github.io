@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/poetry/home-bg-poetry.jpg">
+    <meta property="twitter:image" content="/img/poetry/home-bg-poetry.jpg" />
+    
+
+    
+    <meta name="title" content="Poetry中文翻译(一)" />
+    <meta property="og:title" content="Poetry中文翻译(一)" />
+    <meta property="twitter:title" content="Poetry中文翻译(一)" />
+    
+
+    
+    <meta name="description" content="简单介绍poetry的作用和安装">
+    <meta property="og:description" content="简单介绍poetry的作用和安装" />
+    <meta property="twitter:description" content="简单介绍poetry的作用和安装" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Poetry中文翻译(一) | Toby的博客</title>
+
+    <link rel="canonical" href="/PoetryCn/1/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/poetry/">poetry</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/poetry/home-bg-poetry.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/poetry" title="Poetry">
+                            Poetry
+                        </a>
+                        
+                        <a class="tag" href="/tags/tools" title="Tools">
+                            Tools
+                        </a>
+                        
+                    </div>
+                    <h1>Poetry中文翻译(一)</h1>
+                    <h2 class="subheading">Poetry简介</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Tuesday, July 4, 2023
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <p>Poetry是Python中用于管理依赖和打包的工具，支持您声明项目所需的库并负责管理其安装和更新。它提供锁定文件用于构建版本和发布项目以确保安装的一致性。</p>
+<h2 id="一系统要求">一.系统要求</h2>
+<p>Poetry支持Linux、macOS、Window等系统，但要求必须使用Python 3.8及以上版本。</p>
+<h2 id="二安装">二.安装</h2>
+<blockquote>
+<p><strong>注意:</strong></p>
+<p>建议将Poetry 安装在一个专用的虚拟环境中，使其与系统的其余部分隔离开来。</p>
+<p>绝不能将其安装在由 Poetry 管理的项目环境中。这可以确保 Poetry 的依赖项不会被意外升级或卸载。</p>
+</blockquote>
+<h3 id="1使用pipx安装">1.使用pipx安装</h3>
+<p><a href="https://github.com/pypa/pipx">pipx</a>是一个用于管理 <code>Python CLI</code> 应用程序的工具，它能够在全局安装这些应用程序，并将它们隔离在独立的虚拟环境中。当使用pipx安装Poetry时，pipx将负责管理Poetry的升级和卸载。</p>
+<h4 id="11安装pipx">1.1.安装pipx</h4>
+<p>如果尚未安装pipx，您可以按照<a href="https://pipx.pypa.io/stable/installation/">官方pipx安装说明</a>中的内容进行安装。任何非过时版本的pipx都可以。</p>
+<h4 id="12安装poetry">1.2.安装Poetry</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipx install poetry
+</span></span></code></pre></div><h4 id="13安装poetry高级安装">1.3.安装Poetry(高级安装)</h4>
+<p>pipx可以使用与pip相同的语法安装不同版本的Poetry</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipx install <span style="color:#8be9fd;font-style:italic">poetry</span><span style="color:#ff79c6">==</span>1.2.0
+</span></span></code></pre></div><p>pipx还能同时安装不同版本的Poetry，这样就能轻松测试备用版本或预发布版本。安装时必须由用户指定一个 <code>唯一的后缀</code>，用于命名Poetry执行文件的名称如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># 下载1.2.0版本并安装以@1.2.0作为后缀的poetry环境中</span>
+</span></span><span style="display:flex;"><span>pipx install --suffix<span style="color:#ff79c6">=</span>@1.2.0 <span style="color:#8be9fd;font-style:italic">poetry</span><span style="color:#ff79c6">==</span>1.2.0  
+</span></span><span style="display:flex;"><span>poetry@1.2.0 --version
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># 下载preview 版本并安装以@preview作为后缀的poetry环境中</span>
+</span></span><span style="display:flex;"><span>pipx install --suffix<span style="color:#ff79c6">=</span>@preview --pip-args<span style="color:#ff79c6">=</span>--pre poetry
+</span></span><span style="display:flex;"><span>poetry@preview --version
+</span></span></code></pre></div><p>pipx 还可以根据<a href="https://pip.pypa.io/en/stable/cli/pip_install/">pip要求规范</a>，从Git上下载安装开发版本，甚至在本地测试git拉取请求:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipx install --suffix @master git+https://github.com/python-poetry/poetry.git@master
+</span></span><span style="display:flex;"><span>pipx install --suffix @pr1234 git+https://github.com/python-poetry/poetry.git@refs/pull/1234/head
+</span></span></code></pre></div><h4 id="14更新poetry">1.4.更新Poetry</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipx upgrade poetry
+</span></span></code></pre></div><h4 id="15卸载poetry">1.5.卸载Poetry</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipx uninstall poetry
+</span></span></code></pre></div><h3 id="2使用官方脚本安装">2.使用官方脚本安装</h3>
+<p>我们提供了一个自定义安装脚本，它创建一个新的虚拟环境，然后在其中安装Poetry，并允许Poetry管理自己的环境。</p>
+<h4 id="21安装poetry">2.1.安装Poetry</h4>
+<p>安装的脚本可直接从<a href="https://install.python-poetry.org">install.python-poetry.org</a>获取，并在自己的资源库中开发。该脚本可直接执行（例如&quot;curl python&quot;）或下载后从磁盘执行（如在 CI 环境中）。</p>
+<blockquote>
+<p><strong>注意:</strong></p>
+<p>原先的<code>install-poetry.py</code> 安装程序已被弃用移除。请使用上述版本进行安装。</p>
+</blockquote>
+<p><strong>Linux, macOS, Windows (WSL):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | python3 -
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong></p>
+<p>在某些系统中，&ldquo;python&rdquo; 可能会指向 Python 2.x 版本的解释器，而&quot;python3&quot; 则明确表示使用 Python 3.x 版本的解释器。因此，使用 &ldquo;python3&rdquo; 命令可以确保你在执行 Python 3.x 版本而不是 Python 2.x 版本的命令。</p>
+</blockquote>
+<p><strong>Windows (Powershell):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>(<span style="color:#8be9fd;font-style:italic">Invoke-WebRequest</span> -Uri https://install.<span style="color:#8be9fd;font-style:italic">python-poetry</span>.org -UseBasicParsing).Content | py -
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong></p>
+<p>如果通过 Microsoft Store 安装了 Python，请在上述命令中将 <code>py</code> 替换为 <code>python</code>。</p>
+</blockquote>
+<h4 id="22安装poetry高级安装">2.2.安装Poetry(高级安装)</h4>
+<p>默认情况下，Poetry会安装到了特定的用户目录：</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>安装目录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MacOS</td>
+<td><code>~/Library/Application Support/pypoetry</code></td>
+</tr>
+<tr>
+<td>Linux/Unix</td>
+<td><code>~/.local/share/pypoetry</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\pypoetry</code></td>
+</tr>
+</tbody>
+</table>
+<p>如果你希望更改安装目录，你可以定义 <code>$POETRY_HOME</code> 环境变量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | <span style="color:#8be9fd;font-style:italic">POETRY_HOME</span><span style="color:#ff79c6">=</span>/etc/poetry python3 -
+</span></span></code></pre></div><p>如果你想安装预发布版本，可以通过在安装脚本中传递 <code>--preview</code> 选项或使用 <code>$POETRY_PREVIEW</code> 环境变量来实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | python3 - --preview
+</span></span><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | <span style="color:#8be9fd;font-style:italic">POETRY_PREVIEW</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span> python3 -
+</span></span></code></pre></div><p>同样，如果要安装特定版本，可以使用 <code>--version</code> 选项或 <code>$POETRY_VERSION</code> 环境变量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | python3 - --version 1.2.0
+</span></span><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | <span style="color:#8be9fd;font-style:italic">POETRY_VERSION</span><span style="color:#ff79c6">=</span>1.2.0 python3 -
+</span></span></code></pre></div><p>你也可以使用 <code>--git</code> 选项从 git 仓库安装 Poetry：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | python3 - --git https://github.com/python-poetry/poetry.git@master
+</span></span></code></pre></div><h4 id="23添加poetry环境变量">2.3.添加Poetry环境变量</h4>
+<p>安装程序会在以下相关的目录中创建一个名为 <code>poetry</code> 的启动脚本：</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>目录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unix</td>
+<td><code>$HOME/.local/bin</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\Python\Scripts</code></td>
+</tr>
+<tr>
+<td>设置了<code>$POETRY_HOME</code></td>
+<td><code>$POETRY_HOME/bin</code></td>
+</tr>
+</tbody>
+</table>
+<p>如果以上目录不在你的 <code>$PATH</code> 中，你可以将它添加进去，这样就可以使用 <code>poetry</code> 命令来调用 Poetry。</p>
+<p>你也可以直接使用poetry可执行文件完整的路径来调用如下：</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>目录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MacOS</td>
+<td><code>~/Library/Application Support/pypoetry/venv/bin/poetry</code></td>
+</tr>
+<tr>
+<td>Linux/Unix</td>
+<td><code>~/.local/share/pypoetry/venv/bin/poetry</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\pypoetry\venv\Scripts\poetry</code></td>
+</tr>
+<tr>
+<td>设置了<code>$POETRY_HOME</code></td>
+<td><code>$POETRY_HOME/venv/bin/poetry</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="24验证poetry">2.4.验证Poetry</h4>
+<p>一旦 Poetry 安装并加入了你的 <code>$PATH</code>，你可以执行以下操作：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry --version
+</span></span></code></pre></div><p>如果你看到类似 <code>Poetry (version 1.2.0)</code>，说明你的安装已经完成</p>
+<h4 id="25更新poetry">2.5.更新Poetry</h4>
+<p>如果你使用的是官方安装程序安装的 Poetry，你可以使用的它的自动更新命令</p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>使用 <code>self update</code> 可能会有问题(特别是Windows系统)，因此最好使用安装程序进行重新安装。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry self update
+</span></span></code></pre></div><p>如果你想更新到预发布版本，可以使用 <code>--preview</code> 选项。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry self update --preview
+</span></span></code></pre></div><p>如果你想更新到特定版本，可以将其作为参数传递给 <code>self update</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry self update 1.2.0
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong></p>
+<p>Poetry 1.1 系列的版本无法直接升级到 1.2 或更新的系列版本。要迁移到更新的版本，需要使用<a href="#26%E5%8D%B8%E8%BD%BDpoetry">下面的方法</a>进行卸载，然后再使用<a href="#%E4%BA%8C%E5%AE%89%E8%A3%85">上述方法</a>进行重新安装。</p>
+</blockquote>
+<h4 id="26卸载poetry">2.6.卸载Poetry</h4>
+<p>如果你决定不再使用 Poetry，你可以通过再次运行安装程序并加上 <code>--uninstall</code> 选项，或者在执行安装程序之前设置 <code>POETRY_UNINSTALL</code> 环境变量从系统中完全的删除它。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | python3 - --uninstall
+</span></span><span style="display:flex;"><span>curl -sSL https://install.python-poetry.org | <span style="color:#8be9fd;font-style:italic">POETRY_UNINSTALL</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">1</span> python3 -
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong></p>
+<p>如果你使用了已弃用的 <code>get-poetry.py</code> 脚本进行安装，你需要手动删除</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -rf <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">POETRY_HOME</span><span style="color:#ff79c6">:-</span>~/.poetry<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>
+</span></span></code></pre></div><p>同时，如果你配置了环境变量你还需要在shell 配置中删除<code>$PATH</code>中的 ~/.poetry/bin</p>
+</blockquote>
+<h3 id="3手动安装高级">3.手动安装(高级)</h3>
+<p>Poetry可以通过使用 <code>pip</code> 和 <code>venv</code> 模块手动安装。这样做实质上是执行了官方安装程序执行的步骤。由于这是一种高级安装方法，仅适用于Unix系统，这边就只介绍Poetry相关安装，系统相关准备不在这边赘述。</p>
+<p>将使用变量 <code>$VENV_PATH</code> 来指示创建虚拟环境的路径。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m venv <span style="color:#8be9fd;font-style:italic">$VENV_PATH</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$VENV_PATH</span>/bin/pip install -U pip setuptools
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$VENV_PATH</span>/bin/pip install poetry
+</span></span></code></pre></div><p>Poetry将被安装在 <code>$VENV_PATH/bin/poetry</code> 中，并且仅对 <code>$VENV_PATH</code> 生效，您可以直接调用该路径下的Poetry命令，或者在其他位置创建符号链接。</p>
+<p>要卸载Poetry，只需删除整个$VENV_PATH目录即可。</p>
+<h3 id="4ci环境安装建议">4.CI环境安装建议</h3>
+<p>与开发环境通常倾向于使用最新的工具不同，CI环境可复现性才是最重要的，以下是一些建议，帮助你在 CI 环境中安装 Poetry。</p>
+<h4 id="41版本固定">4.1.版本固定</h4>
+<p>无论你使用哪种方法安装 Poetry，都建议您明确指定 Poetry 的版本，这样你就可以在自己的验证后进行升级。每种安装方法都有不同的语法来设置版本。
+以下示例中将演示每种方法的版本控制。</p>
+<p><strong>pipx安装固定版本:</strong></p>
+<p>在CI环境中使用 Poetry，强烈推荐用 pipx进行安装。 pipx 非常给力，在 CI 环境中，绝对是使用 Poetry 的不二之选。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipx install <span style="color:#8be9fd;font-style:italic">poetry</span><span style="color:#ff79c6">==</span>1.2.0
+</span></span></code></pre></div><p><strong>官方脚本安装固定版本:</strong></p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>官方安装脚本（install.python-poetry.org）提供了一种简化的 Poetry 安装方式，适用于开发者或简单的流水线。然而，在 CI 环境中，应该认真考虑另外两种支持的安装方法（pipx 和手动安装）。</p>
+</blockquote>
+<p>建议在你的 CI 流水线能够访问的地方下载安装程序脚本的副本（或者保留存储库的副本），这样可以确保你的流水线稳定运行并对执行的代码保持控制。</p>
+<p>默认情况下，安装程序会被安装到用户特定的目录。在更复杂的 CI 流水线中，这可能会导致访问 Poetry 变得有些困难，尤其是在像多阶段容器构建这样的情况下。在使用官方安装程序进行 CI 时，强烈建议使用 <code>$POETRY_HOME</code>，这样可以更精准地控制路径。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">POETRY_HOME</span><span style="color:#ff79c6">=</span>/opt/poetry
+</span></span><span style="display:flex;"><span>python3 install-poetry.py --version 1.2.0
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$POETRY_HOME</span>/bin/poetry --version
+</span></span></code></pre></div><p><strong>手动安装固定版本:</strong></p>
+<p>为了在你的CI环境中获得最大的控制权，强烈推荐使用pip进行安装。虽然这需要你提供更明确的命令和对Python打包的了解，但相应地提供了最佳的调试体验，并且减少了对外部工具的依赖。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">POETRY_HOME</span><span style="color:#ff79c6">=</span>/opt/poetry
+</span></span><span style="display:flex;"><span>python3 -m venv <span style="color:#8be9fd;font-style:italic">$POETRY_HOME</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$POETRY_HOME</span>/bin/pip install <span style="color:#8be9fd;font-style:italic">poetry</span><span style="color:#ff79c6">==</span>1.2.0
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">$POETRY_HOME</span>/bin/poetry --version
+</span></span></code></pre></div><blockquote>
+<p>注意:</p>
+<p>如果你通过pip安装Poetry，请确保将Poetry安装在一个独立的环境中，而不是与Poetry管理的目标环境相同。
+如果Poetry和你的项目安装在同一个环境中，Poetry可能会升级或卸载它自己的依赖项，这可能导致出现难以调试或无法预料的错误。</p>
+</blockquote>
+<h2 id="三启动tab自动补全bashfishzsh">三.启动Tab自动补全(Bash,Fish,Zsh)</h2>
+<p>Poetry支持生成Bash、Fish和Zsh的补全脚本。</p>
+<h3 id="1bash">1.Bash</h3>
+<h4 id="11自动加载推荐">1.1.自动加载(推荐)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry completions bash &gt;&gt; ~/.bash_completion
+</span></span></code></pre></div><h4 id="12懒加载">1.2.懒加载</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry completions bash &gt; <span style="color:#f1fa8c">${</span><span style="color:#8be9fd;font-style:italic">XDG_DATA_HOME</span><span style="color:#ff79c6">:-</span>~/.local/share<span style="color:#f1fa8c">}</span>/bash-completion/completions/poetry
+</span></span></code></pre></div><h3 id="2fish">2.Fish</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry completions fish &gt; ~/.config/fish/completions/poetry.fish
+</span></span></code></pre></div><h3 id="3zsh">3.Zsh</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry completions zsh &gt; ~/.zfunc/_poetry
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong></p>
+<p>如果 <code>~/.zshrc</code> 文件中不存在以下两行代码，则需要在<code>~/.zshrc</code>文件中插入</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">fpath</span><span style="color:#ff79c6">+=</span>~/.zfunc
+</span></span><span style="display:flex;"><span>autoload -Uz compinit <span style="color:#ff79c6">&amp;&amp;</span> compinit
+</span></span></code></pre></div><h3 id="4oh-my-zsh">4.Oh My Zsh</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir <span style="color:#8be9fd;font-style:italic">$ZSH_CUSTOM</span>/plugins/poetry
+</span></span><span style="display:flex;"><span>poetry completions zsh &gt; <span style="color:#8be9fd;font-style:italic">$ZSH_CUSTOM</span>/plugins/poetry/_poetry
+</span></span></code></pre></div><p>在<code>~/.zshrc</code>中的插件数组中添加<code>poetry</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>plugins<span style="color:#ff79c6">(</span>
+</span></span><span style="display:flex;"><span>    poetry
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">)</span>
+</span></span></code></pre></div><h3 id="5prezto">5.prezto</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>poetry completions zsh &gt; ~/.zprezto/modules/completion/external/src/_poetry
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong></p>
+<p>为了使这些更改生效，您需要重新启动Shell。</p>
+</blockquote>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonAdvance/1/" data-toggle="tooltip" data-placement="top" title="Python高级提升代码技巧">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

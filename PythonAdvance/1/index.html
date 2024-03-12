@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-organize.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-organize.jpg" />
+    
+
+    
+    <meta name="title" content="Python高级提升代码技巧" />
+    <meta property="og:title" content="Python高级提升代码技巧" />
+    <meta property="twitter:title" content="Python高级提升代码技巧" />
+    
+
+    
+    <meta name="description" content="介绍如何构建Python项目以及如何命名以及其他组织Python项目的技巧">
+    <meta property="og:description" content="介绍如何构建Python项目以及如何命名以及其他组织Python项目的技巧" />
+    <meta property="twitter:description" content="介绍如何构建Python项目以及如何命名以及其他组织Python项目的技巧" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python高级提升代码技巧 | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonAdvance/1/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/poetry/">poetry</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-organize.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonadvance" title="PythonAdvance">
+                            PythonAdvance
+                        </a>
+                        
+                        <a class="tag" href="/tags/pythonic" title="Pythonic">
+                            Pythonic
+                        </a>
+                        
+                    </div>
+                    <h1>Python高级提升代码技巧</h1>
+                    <h2 class="subheading">组织Python代码技巧</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Thursday, November 17, 2022
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一构建python项目">一.构建Python项目</h2>
+<p>首先关注目录结构、文件命名和模块组织。</p>
+<p>我建议你将所有的模块文件放在一个名为&quot;src&quot;的目录中，而所有的测试文件与之并列：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>顶层项目目录：
+</span></span><span style="display:flex;"><span>&lt;project&gt;
+</span></span><span style="display:flex;"><span>├── src
+</span></span><span style="display:flex;"><span>│   ├── &lt;module&gt;/*
+</span></span><span style="display:flex;"><span>│   │    ├── __init__.py
+</span></span><span style="display:flex;"><span>│   │    └── many_files.py
+</span></span><span style="display:flex;"><span>│   │
+</span></span><span style="display:flex;"><span>│   └── tests/*
+</span></span><span style="display:flex;"><span>│        └── many_tests.py
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── .gitignore
+</span></span><span style="display:flex;"><span>├── pyproject.toml
+</span></span><span style="display:flex;"><span>└── README.md
+</span></span></code></pre></div><p><code>&lt;module&gt;</code> 是您的主要模块。对此有疑问，可以想象一下使用pip安装模块的时候包名如 <code>pip install pymsql</code> 其中 <code>pymysql</code> 就是包名，再想象一下我们导入模块 <code>import pymysql</code> 其中 <code>pymysql</code> 也是模块名。通常情况下，它与顶级项目的名称相同，但 <code>这不是一个绝对的规则</code> 。</p>
+<h3 id="1设置src目录的原因">1.设置src目录的原因</h3>
+<p>不同的项目有不同的做法，有些项目没有 <code>src</code> 目录，而是将所有项目模块分散在整个项目中，显得项目很杂乱不易于管理。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>non_recommended_project
+</span></span><span style="display:flex;"><span>├── &lt;module_a&gt;/*
+</span></span><span style="display:flex;"><span>│     ├── __init__.py
+</span></span><span style="display:flex;"><span>│     └── many_files.py
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── .gitignore
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── tests/*
+</span></span><span style="display:flex;"><span>│    └── many_tests.py
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── pyproject.toml
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── &lt;module_b&gt;/*
+</span></span><span style="display:flex;"><span>│     ├── __init__.py
+</span></span><span style="display:flex;"><span>│     └── many_files.py
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└── README.md
+</span></span></code></pre></div><p>由于IDE会对模块名称进行字母排序，就会导致我们查找时很麻烦。将模块放在在src内部的主要原因是将活跃的项目代码集中到一个单一的目录中，而CI/CD设置和项目元数据可以放在src之外。</p>
+<p>这样做唯一的缺点是你不能直接在Python代码中直接 <code>import &lt;module&gt;</code> ，我们需要设置项目使其能够在这个代码库下被安装。</p>
+<h3 id="2如何命名文件">2.如何命名文件</h3>
+<h4 id="21无文件">2.1.无‘文件’</h4>
+<p>首先，在Python中没有 <code>文件</code> 这一概念，这就是让初学者感到困惑的主要原因。如果Python文件在一个包含<code>__init__.py</code>文件的目录中，那这个目录就是有模块组成，而不是由文件组成。可以参考基础部分的<a href="/PythonBase/49/">模块和包</a>去理解这一点。</p>
+<p>我们可以把每个模块都视为一个命名空间，因为你不能确定它们是否有许多函数、类，还是只有常量。模块中可以包含所有这些元素，也可能只包含其中一些。</p>
+<h4 id="22根据需要将事务放在一起">2.2.根据需要将事务放在一起</h4>
+<p>在一个单一的模块中存放多个类是可以的，前提必须是这些类都和模块相关。只有当一个模块太大了或者需要处理不同问题的时候，我们才需要考虑是不是要将其拆分。</p>
+<blockquote>
+<p><strong>注意:</strong></p>
+<p>受其他开发语言(eg:java, c#)的开发经验影响，在单一模块中放多个类有很多人认为这是一种不好的做法，但是在Python我推荐这样做。</p>
+</blockquote>
+<h4 id="23模块命名尽量命名为复数">2.3.模块命名尽量命名为复数</h4>
+<p>根据经验，尽量结合业务背景用复数来给模块进行命名。不过这条规则也有例外！模块可以命名为 core、main.py 等，以表示一个单一的事物。根据自身项目进行判断，如果不知道如何命名可以直接用复数命名。</p>
+<h3 id="3命名模块的真是案例">3.命名模块的真是案例</h3>
+<p>以<a href="https://github.com/guilatrova/GMaps-Crawler">Google Maps Crawler</a> 项目作为示例。该项目负责使用Selenium从Google地图中抓取数据并输出<a href="https://guicommits.com/selenium-example-with-python-gmaps/">请在此处阅读更多信息</a> 。</p>
+<p>以下是该项目的目录(符合以上三条规则)：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gmaps_crawler
+</span></span><span style="display:flex;"><span>├── src
+</span></span><span style="display:flex;"><span>│   └── gmaps_crawler
+</span></span><span style="display:flex;"><span>│        ├── __init__.py
+</span></span><span style="display:flex;"><span>│        ├── config.py 👈 <span style="color:#ff79c6">(</span>单数<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>│        ├── drivers.py
+</span></span><span style="display:flex;"><span>│        ├── entities.py
+</span></span><span style="display:flex;"><span>│        ├── exceptions.py
+</span></span><span style="display:flex;"><span>│        ├── facades.py
+</span></span><span style="display:flex;"><span>│        ├── main.py  👈 <span style="color:#ff79c6">(</span>单数<span style="color:#ff79c6">)</span>
+</span></span><span style="display:flex;"><span>│        └── storages.py
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── .gitignore
+</span></span><span style="display:flex;"><span>├── pyproject.toml
+</span></span><span style="display:flex;"><span>└── README.md
+</span></span></code></pre></div><p>导入模块也是非常简单：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> gmaps_crawler.storages <span style="color:#ff79c6">import</span> get_storage
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> gmaps_crawler.entities <span style="color:#ff79c6">import</span> Place
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> gmaps_crawler.exceptions <span style="color:#ff79c6">import</span> CantEmitPlace
+</span></span></code></pre></div><p>以 <code>exceptions</code> 模块为例，我可以理解，在 <code>exceptions</code> 中可能有一个或多个异常类。</p>
+<p>多个模块的好处在于：</p>
+<ul>
+<li>可以丰富模块功能</li>
+<li>如果需要，您可以随时将其分解成更小的模块</li>
+<li>它能让你对模块可能存在的内容有很强的了解感</li>
+</ul>
+<h2 id="二命名类函数变量">二.命名类，函数，变量</h2>
+<p>有些人觉得命名很难。当您定义一些准则时，它会变得不那么困难。</p>
+<h3 id="1函数和方法应该是动词">1.函数和方法应该是动词</h3>
+<p>函数和方法代表一个动作或可操作的内容，可以是未发生的动作也可以是正在发生的动作。所以用动词描述更加准确。</p>
+<p><strong>demo:</strong> 建议的命名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_orders</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">acknowledge_event</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_delivery_information</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">publish</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span></code></pre></div><p><strong>demo:</strong> 不建议的命名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">email_send</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">api_call</span>():
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">specific_stuff</span>():
+</span></span><span style="display:flex;"><span>   <span style="color:#ff79c6">...</span>
+</span></span></code></pre></div><p>不建议的命名的例子中我们不清楚函数是返回一个对象以允许我执行API调用，还是实际上发送电子邮件</p>
+<p>我们可以想象下列的场景：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># 误导性函数名称的例子</span>
+</span></span><span style="display:flex;"><span>email_send<span style="color:#ff79c6">.</span>title <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;title&#34;</span>
+</span></span><span style="display:flex;"><span>email_send<span style="color:#ff79c6">.</span>dispatch()
+</span></span></code></pre></div><p>通常都会使用这条规则作为函数和方法的命名，但是也有例外如：</p>
+<ul>
+<li>创建一个要在应用程序的主入口点调用的 <code>main()</code> 函数</li>
+<li>使用 <code>@property</code> 将类方法视为属性</li>
+</ul>
+<h3 id="2变量和常量应该为名词">2.变量和常量应该为名词</h3>
+<p><code>必须是名词，绝对不能使用动词</code>（这是和函数(方法)之间的区别）。</p>
+<p><strong>demo:</strong> 推荐的命名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plane <span style="color:#ff79c6">=</span> Plane()
+</span></span><span style="display:flex;"><span>customer_id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>KEY_COMPARISON <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;abc&#34;</span>
+</span></span></code></pre></div><p><strong>demo:</strong> 不推荐命名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>fly <span style="color:#ff79c6">=</span> Plane()
+</span></span><span style="display:flex;"><span>get_customer_id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span>COMPARE_KEY <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;abc&#34;</span>
+</span></span></code></pre></div><p>如果您的变量或常量是列表或集合，请将其设为复数！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>planes: <span style="color:#8be9fd;font-style:italic">list</span>[Plane] <span style="color:#ff79c6">=</span> [Plane()] <span style="color:#6272a4"># 👈 即使他只有一项</span>
+</span></span><span style="display:flex;"><span>customer_ids: <span style="color:#8be9fd;font-style:italic">set</span>[<span style="color:#8be9fd;font-style:italic">int</span>] <span style="color:#ff79c6">=</span> {<span style="color:#bd93f9">5</span>, <span style="color:#bd93f9">12</span>, <span style="color:#bd93f9">22</span>}
+</span></span><span style="display:flex;"><span>KEY_MAP: <span style="color:#8be9fd;font-style:italic">dict</span>[<span style="color:#8be9fd;font-style:italic">str</span>, <span style="color:#8be9fd;font-style:italic">str</span>] <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;123&#34;</span>: <span style="color:#f1fa8c">&#34;abc&#34;</span>} <span style="color:#6272a4"># 👈 字典保持单数</span>
+</span></span></code></pre></div><h3 id="3类名应该见名知意后缀除外">3.类名应该见名知意，后缀除外</h3>
+<p>建议类命名的时候尽量做到见名知意，在一些必要的时候加上<code>Service</code>,<code>Strategy</code>,<code>Middkeware</code>这样的后缀也是可以的，以下是具体的规则：</p>
+<ul>
+<li><strong>类的命名尽量使用单数:</strong> 复数总让人想起集合。例如，我读到以orders命名的类，我会认为它是列表或者可迭代函数，所以要提醒自己，一旦一个类被实例化，它就成为一个单一的对象。</li>
+<li><strong>类代表的是实体:</strong> 代表商业环境中事物的类应该以原样命名(名词)。如：<code>Order</code>，<code>Sale</code>，<code>Store</code>，<code>Restaurant</code>等等。</li>
+</ul>
+<p><strong>后缀用法示例:</strong></p>
+<p>假设您想创建一个负责发送电子邮件的类。如果你将类命名为<code>Email</code>，这个类的功能就不是很清晰。有的可能认为其实一个实体。</p>
+<p><strong>demo:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>email <span style="color:#ff79c6">=</span> Email() <span style="color:#6272a4"># 推断的用法示例</span>
+</span></span><span style="display:flex;"><span>email<span style="color:#ff79c6">.</span>title <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Title&#34;</span>
+</span></span><span style="display:flex;"><span>email<span style="color:#ff79c6">.</span>body <span style="color:#ff79c6">=</span> create_body()
+</span></span><span style="display:flex;"><span>email<span style="color:#ff79c6">.</span>send_to <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;guilatrova.dev&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>send_email(email)
+</span></span></code></pre></div><p>你应该将其命名为：<code>EmailSender</code> 或 <code>EmailService</code>。</p>
+<h2 id="三命名约定">三.命名约定</h2>
+<p>默认情况下遵守下列命名约定</p>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>公共访问</th>
+<th>私有化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Packages(包目录)</td>
+<td>lower_with_under(小驼峰下划线分割)</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Modules(模块文件)</td>
+<td>lower_with_under.py(小驼峰下划线分割)</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Classes(类)</td>
+<td>CapWords(大驼峰)</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Functions &amp; methods(函数方法)</td>
+<td>lower_with_under()(小驼峰下划线分割)</td>
+<td>_lower_with_under()(小驼峰下划线分割)</td>
+</tr>
+<tr>
+<td>Constants(常量)</td>
+<td>ALL_CAPS_UNDER(大驼峰下划线分割)</td>
+<td>_ALL_CAPS_UNDER(大驼峰下划线分割)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="四关于私有化方法的声明">四.关于&quot;私有&quot;化方法的声明</h2>
+<p>如果你有一个以双下划线开头的方法，任何以两个下划线开头的方法，Python将不允许外部类方法正常调用它。如: <code>__method(self)</code> 。</p>
+<p>如果你了解过其他语言例如c#，这样做你会感到十分奇怪，因为在C#如果您真的决定调用该方法，你可以采取一些不正当手段来调用它（在 C# 中称为“反射”）</p>
+<p>但Guido(Python 的创造者)这样解释道：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>&#34;We&#39;re all consenting adults here&#34;  # 我们都是成年人
+</span></span></code></pre></div><p>这意味着我们应该遵守私有化这个规则，单个初始下划线标记你的私有方法/函数，以表示它只用于内部使用，并且接受这个现实，如果你知道你不应该调用一个方法，那么你就不应该调用。。</p>
+<h2 id="五何时在python中创建函数或类">五.何时在Python中创建函数或类</h2>
+<p>如果您遵循上述建议，您将拥有清晰的模块，而清晰的模块是组织功能的有效方式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> gmaps_crawler <span style="color:#ff79c6">import</span> storages
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>storages<span style="color:#ff79c6">.</span>get_storage()  <span style="color:#6272a4"># 👈 类似于一个类，除了它没有实例化并且有一个复数名称</span>
+</span></span><span style="display:flex;"><span>storages<span style="color:#ff79c6">.</span>save_to_storage()  <span style="color:#6272a4"># 👈 模块内的潜在功能</span>
+</span></span></code></pre></div><p>如果你可以在一个模块内确定函数的子集。那么使用类会更有意义：</p>
+<h3 id="1对不同函数子集进行分组的示例">1.对不同函数子集进行分组的示例</h3>
+<p>考虑具有 4 个功能的相同存储模块：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">format_for_debug</span>(some_data):
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">save_debug</span>(some_data):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;Prints in the screen&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    formatted_data <span style="color:#ff79c6">=</span> format_for_debug(some_data)
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(formatted_data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">create_s3</span>(bucket):
+</span></span><span style="display:flex;"><span>    <span style="color:#f1fa8c">&#34;&#34;&#34;Create s3 bucket if it doesn&#39;t exists&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">save_s3</span>(some_data):
+</span></span><span style="display:flex;"><span>    s3 <span style="color:#ff79c6">=</span> create_s3(<span style="color:#f1fa8c">&#34;bucket_name&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span></code></pre></div><p><code>S3</code> 是由亚马逊（AWS）提供的云存储服务，用于存储各种类型的数据。它类似于用于软件的Google Drive。</p>
+<p>我们可以这样认为：</p>
+<ul>
+<li>开发者可以将数据保存在DEBUG模式（即只在屏幕上打印）或S3模式（即在云上存储数据）。</li>
+<li>save_debug使用format_for_debug函数。</li>
+<li>save_s3使用create_s3函数</li>
+</ul>
+<p>我可以看到两组函数，而且没有必要将它们分开放在不同的模块中，因为它们看起来功能点都不多，所以我想将它们定义为类</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">DebugStorage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">format_for_debug</span>(self, some_data):
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">save_debug</span>(self, some_data):
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;&#34;&#34;Prints in the screen&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        formatted_data <span style="color:#ff79c6">=</span> self<span style="color:#ff79c6">.</span>format_for_debug(some_data)
+</span></span><span style="display:flex;"><span>        <span style="color:#8be9fd;font-style:italic">print</span>(formatted_data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">S3Storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">create_s3</span>(self, bucket):
+</span></span><span style="display:flex;"><span>        <span style="color:#f1fa8c">&#34;&#34;&#34;Create s3 bucket if it doesn&#39;t exists&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">save_s3</span>(self, some_data):
+</span></span><span style="display:flex;"><span>        s3 <span style="color:#ff79c6">=</span> self<span style="color:#ff79c6">.</span>create_s3(<span style="color:#f1fa8c">&#34;bucket_name&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#ff79c6">...</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>创建函数或类规则:</strong></p>
+<p>1.始终从函数开始</p>
+<p>2.一旦你觉得你可以将不同的功能子集分组，就封装成类</p>
+</blockquote>
+<h2 id="六创建模块和入口">六.创建模块和入口</h2>
+<p>每一个程序都应该有一个入口。这意味着有一个单一的模块（又称文件）来运行你的应用程序。它可以是一个单一的脚本，也可以是一个大的模块。每当您创建入口时，请务必添加一个条件以确保他在导入前就能够执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">execute_main</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> __name__ <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;__main__&#34;</span>:  <span style="color:#6272a4"># 👈 添加此条件</span>
+</span></span><span style="display:flex;"><span>    execute_main()
+</span></span></code></pre></div><p>通过这样做，您可以确保任何导入都不会意外触发您的代码。除非明确执行。</p>
+<h3 id="1为模块定义main">1.为模块定义main</h3>
+<p>一些 python 包可以通过传递 -m 来调用，比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>python <span style="color:#ff79c6">-</span>m pytest
+</span></span><span style="display:flex;"><span>python <span style="color:#ff79c6">-</span>m tryceratops
+</span></span><span style="display:flex;"><span>python <span style="color:#ff79c6">-</span>m faust
+</span></span><span style="display:flex;"><span>python <span style="color:#ff79c6">-</span>m flake8
+</span></span><span style="display:flex;"><span>python <span style="color:#ff79c6">-</span>m black
+</span></span></code></pre></div><p>这些包几乎像常规命令一样被处理，因为你还可以像这样运行它们。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pytest
+</span></span><span style="display:flex;"><span>tryceratops
+</span></span><span style="display:flex;"><span>faust
+</span></span><span style="display:flex;"><span>flake8
+</span></span><span style="display:flex;"><span>black
+</span></span></code></pre></div><p>要实现这一点，你需要在主模块内部指定一个单独的 <code>__main__.py</code> 文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&lt;project&gt;
+</span></span><span style="display:flex;"><span>├── src
+</span></span><span style="display:flex;"><span>│   ├── example_module 👈 主模块
+</span></span><span style="display:flex;"><span>│   │    ├── __init__.py
+</span></span><span style="display:flex;"><span>│   │    ├── __main__.py 👈 在这里添加
+</span></span><span style="display:flex;"><span>│   │    └── many_files.py
+</span></span><span style="display:flex;"><span>│   │
+</span></span><span style="display:flex;"><span>│   └── tests/*
+</span></span><span style="display:flex;"><span>│        └── many_tests.py
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── .gitignore
+</span></span><span style="display:flex;"><span>├── pyproject.toml
+</span></span><span style="display:flex;"><span>└── README.md
+</span></span></code></pre></div><p>不要忘记您仍然需要在 <code>__main__.py</code> 文件中包含检查 <code>__name__ == &quot;__main__&quot;</code> 。</p>
+<p>安装模块时，可以将项目作为 python -m example_module 运行。</p>
+<p><strong>python -m 的作用:</strong></p>
+<p>在Python中，<code>python -m</code>是一种命令行选项，用于执行模块（Module）作为脚本。它的作用如下：</p>
+<ul>
+<li><strong>以模块形式运行脚本:</strong> 使用<code>python -m</code>可以直接从命令行以模块形式运行Python脚本，而无需指定完整的脚本文件路径。这种方式对于执行包含<code>if __name__ == &quot;__main__&quot;:</code>代码块的模块非常有用，因为它允许模块在作为脚本运行时执行特定的代码块。</li>
+<li><strong>寻找模块:</strong> <code>python -m</code>会按照Python模块搜索路径来寻找指定的模块。它可以找到位于系统路径或安装的第三方库路径中的模块，并执行相应的代码。</li>
+<li><strong>方便执行Python标准库模块:</strong> 使用<code>python -m</code>可以方便地执行Python标准库中的模块，而无需提供完整的模块路径。例如，要执行<code>json</code>模块中的工具（tool）子模块，可以使用<code>python -m json.tool</code>命令。</li>
+</ul>
+<p>总之，<code>python -m 选项</code> 提供了一种简便的方式来执行模块作为脚本，并允许在模块中定义特定的执行逻辑。它还可以方便地执行Python标准库中的模块。</p>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/49/" data-toggle="tooltip" data-placement="top" title="Python模块和包">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PoetryCn/1/" data-toggle="tooltip" data-placement="top" title="Poetry中文翻译(一)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

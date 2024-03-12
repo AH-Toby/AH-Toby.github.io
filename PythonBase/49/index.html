@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en_us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Toby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="/img/python/home-bg-python-moudle-package.jpg">
+    <meta property="twitter:image" content="/img/python/home-bg-python-moudle-package.jpg" />
+    
+
+    
+    <meta name="title" content="Python模块和包" />
+    <meta property="og:title" content="Python模块和包" />
+    <meta property="twitter:title" content="Python模块和包" />
+    
+
+    
+    <meta name="description" content="介绍Python中模块和包的使用">
+    <meta property="og:description" content="介绍Python中模块和包的使用" />
+    <meta property="twitter:description" content="介绍Python中模块和包的使用" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Toby Wong, Toby, toby, toby wong, , poetry中文, Toby的博客, Toby Blog, 博客, 个人网站, 互联网, Web, RPA, Python, 自动化办公, MQTT, FastApi, Microservice">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Python模块和包 | Toby的博客</title>
+
+    <link rel="canonical" href="/PythonBase/49/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Toby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/poetry/">poetry</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/python/">python</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/archive//">archive</a></li>
+                    
+                        <li><a href="/about//">about</a></li>
+                    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/python/home-bg-python-moudle-package.jpg')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/pythonbase" title="PythonBase">
+                            PythonBase
+                        </a>
+                        
+                    </div>
+                    <h1>Python模块和包</h1>
+                    <h2 class="subheading">Python模块和包</h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                     &#34;Toby&#34;
+                             
+                            on 
+                            Monday, June 15, 2020
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h2 id="一模块module">一.模块(Module)</h2>
+<p><strong>定义:</strong> 模块是一个包含 Python 代码的文件，通常以 .py 扩展名结尾。它可以包含变量、函数、类等Python代码。</p>
+<p><strong>作用:</strong> 模块提供了一种将相关代码组织成单个单元的方式，可以方便地重用和维护代码。</p>
+<p><strong>使用:</strong> 在其他 Python 文件中通过 <code>import</code> 或者 <code>from xx import xx</code> 语句导入模块，然后可以使用模块中定义的变量、函数、类等。</p>
+<h3 id="1创建模块">1.创建模块</h3>
+<p>在Python中，一个文件就是一个模块，文件的名称即为模块的名称。为了创建一个模块，你只需要编写Python代码，并将其保存为以 .py 结尾的文件。</p>
+<p><strong>demo:</strong> my_module.py</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">greet</span>(name):
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Hello, &#34;</span> <span style="color:#ff79c6">+</span> name)
+</span></span></code></pre></div><h3 id="2导入使用模块">2.导入使用模块</h3>
+<p>要在另一个Python程序中使用模块，你可以使用 import 语句来导入模块。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> my_module
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>my_module<span style="color:#ff79c6">.</span>greet(<span style="color:#f1fa8c">&#34;Alice&#34;</span>)
+</span></span></code></pre></div><p>你也可以只导入模块中的特定函数或变量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> my_module <span style="color:#ff79c6">import</span> greet
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>greet(<span style="color:#f1fa8c">&#34;Bob&#34;</span>)
+</span></span></code></pre></div><p>在使用from语句导入模块的时候使用特殊字符 <code>*</code> 导入该模块下所有函数，但是这种方法不推荐使用，因为函数重名并没有任何提示，出现问题不好排查:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> my_module <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>greet(<span style="color:#f1fa8c">&#34;Bob&#34;</span>)
+</span></span></code></pre></div><p>你还可以使用 <code>as</code> 关键字来为导入的模块或函数指定别名：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> my_module <span style="color:#ff79c6">as</span> mm
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mm<span style="color:#ff79c6">.</span>greet(<span style="color:#f1fa8c">&#34;Charlie&#34;</span>)
+</span></span></code></pre></div><h3 id="3其他导入模块方法">3.其他导入模块方法</h3>
+<p>除了以上提到的方式，还有其他一些方式来导入模块</p>
+<p><strong>使用绝对路径导入模块:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> sys
+</span></span><span style="display:flex;"><span>sys<span style="color:#ff79c6">.</span>path<span style="color:#ff79c6">.</span>append(<span style="color:#f1fa8c">&#34;/path/to/your/module&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> your_module
+</span></span></code></pre></div><p><strong>使用相对路径导入模块:</strong> 在这种情况下，你的Python文件必须位于一个包中，否则会引发 <code>ImportError</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> . <span style="color:#ff79c6">import</span> your_module
+</span></span></code></pre></div><p><strong>使用 importlib 模块动态导入模块:</strong> 这种方式允许你根据字符串形式来动态地导入模块</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> importlib
+</span></span><span style="display:flex;"><span>your_module <span style="color:#ff79c6">=</span> importlib<span style="color:#ff79c6">.</span>import_module(<span style="color:#f1fa8c">&#34;your_module&#34;</span>)
+</span></span></code></pre></div><h3 id="4定位模块">4.定位模块</h3>
+<p>在Python中，要定位模块，解释器首先会搜索内置模块，然后搜索 <code>sys.path</code> 中列出的目录。<code>sys.path</code>是一个包含了Python模块搜索路径的列表，它包括了Python解释器会搜索的目录路径。</p>
+<p>通常情况下，<code>sys.path</code> 包括以下几个位置：</p>
+<ul>
+<li>当前目录。</li>
+<li>Python 安装的默认位置。</li>
+<li>PYTHONPATH 环境变量中列出的目录。</li>
+</ul>
+<p>你可以使用以下方式查看 <code>sys.path</code> 的内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> sys
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">print</span>(sys<span style="color:#ff79c6">.</span>path)
+</span></span></code></pre></div><p>你还可以使用 <code>sys.path.append()</code> 方法将要搜索的路径添加到 <code>sys.path</code> 中。</p>
+<h3 id="5模块中两个特殊的变量">5.模块中两个特殊的变量</h3>
+<h4 id="51__name__变量">5.1.__name__变量</h4>
+<p><strong>定义:</strong> __name__是一个特殊的内置变量，它用于获取模块的名称</p>
+<p><strong>作用:</strong> 用于区分模块是以脚本形式运行还是被导入到其他模块中</p>
+<p><strong>使用:</strong> 当Python解释器执行一个模块时，<code>__name__</code> 的值将会被设置为字符串 <code>&quot;__main__&quot;</code>，表示该模块是主程序入口。而当一个模块被导入到其他模块中时，<code>__name__</code>的值将是该模块的名称。这种机制使得你可以编写一些模块，在作为脚本运行时执行一些特定的操作，同时还能够将这些模块作为库供其他模块使用，而不会执行这些特定操作。</p>
+<p><strong>demo:</strong> 假设有一个名为 example_module.py 的模块</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># example_module.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">main</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;This is the main function&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">if</span> __name__ <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><p>当你直接运行这个模块时，<code>__name__</code> 的值将会是 <code>&quot;__main__&quot;</code>，因此 <code>main()</code> 函数会被调用，打印 &ldquo;This is the main function&rdquo;。但是如果你将这个模块导入到其他模块中，<code>__name__</code> 的值将会是 &ldquo;example_module&rdquo;，而 main() 函数则不会被调用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># another_module.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> example_module
+</span></span></code></pre></div><h4 id="52__all__变量">5.2.__all__变量</h4>
+<p><strong>定义:</strong> __all__是一个包含字符串的列表，其中包含了模块中希望导出的公共成员的名称。</p>
+<p><strong>作用:</strong> 用于定义一个模块中哪些成员应该被 <code>from module import *</code> 语句导入。</p>
+<p><strong>使用:</strong> 当你使用 <code>from module import *</code> 语句导入模块时，解释器会检查模块中是否定义了 <code>__all__</code> 变量，如果定义了，只有 <code>__all__</code> 中列出的成员才会被导入，否则，所有不以下划线 _ 开头的全局名称都会被导入。</p>
+<p><strong>demo:</strong> 假设有一个名为 my_module.py 的模块</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># my_module.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>__all__ <span style="color:#ff79c6">=</span> [<span style="color:#f1fa8c">&#39;foo&#39;</span>, <span style="color:#f1fa8c">&#39;MyClass&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">foo</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;This is foo function&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">bar</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;This is bar function&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MyClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">class</span> <span style="color:#50fa7b">_InternalClass</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ff79c6">pass</span>
+</span></span></code></pre></div><p>当你使用 <code>from my_module import *</code> 语句导入模块时，只会导入 <code>__all__</code> 中指定的 foo 函数和 MyClass 类，而不会导入 bar 函数或 _InternalClass 类。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> my_module <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>foo()  <span style="color:#6272a4"># 可以访问</span>
+</span></span><span style="display:flex;"><span>bar()  <span style="color:#6272a4"># NameError: name &#39;bar&#39; is not defined</span>
+</span></span><span style="display:flex;"><span>MyClass()  <span style="color:#6272a4"># 可以访问</span>
+</span></span><span style="display:flex;"><span>_InternalClass()  <span style="color:#6272a4"># NameError: name &#39;_InternalClass&#39; is not defined</span>
+</span></span></code></pre></div><h2 id="二包package">二.包(Package)</h2>
+<p><strong>定义:</strong> 包（Package）是一种用于组织和管理Python模块的方式。它是一个包含了 <code>多个模块的目录</code>，通常还包括一个名为 <code>__init__.py</code> 的特殊文件，用于指示解释器该目录是一个包。</p>
+<p><strong>作用:</strong> 包提供了一种结构化的方法来组织代码，使得代码更易于维护和管理</p>
+<p><strong>使用:</strong> 先从包中导入具体的模块在选择使用模块中的函数方法</p>
+<h3 id="1创建包">1.创建包</h3>
+<p>创建一个目录，并在其中包含一个 <code>__init__.py</code> 文件，以及一些模块文件</p>
+<p><strong>demo:</strong> 假设我们有一个名为 my_package 的包，它包含了两个模块 module1.py 和 module2.py</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>my_package/
+</span></span><span style="display:flex;"><span>    __init__.py
+</span></span><span style="display:flex;"><span>    module1.py
+</span></span><span style="display:flex;"><span>    module2.py
+</span></span></code></pre></div><h3 id="2导入使用包">2.导入使用包</h3>
+<p><strong>直接导入:</strong> 你可以直接导入包本身，但这样做只会执行包的 <code>__init__.py</code> 文件，而不会导入包中的其他模块</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> my_package
+</span></span></code></pre></div><p><strong>导入包中的模块:</strong> 你可以使用 <code>import</code> 语句来导入包中的模块</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> my_package.module1
+</span></span></code></pre></div><p><strong>导入包中的模块并重命名:</strong> 你可以使用 as 关键字给导入的模块指定一个别名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">import</span> my_package.module1 <span style="color:#ff79c6">as</span> mod1
+</span></span></code></pre></div><p><strong>导入包中的模块中的指定成员:</strong> 你可以使用 from &hellip; import &hellip; 语法从包中的模块中导入指定的成员。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> my_package.module1 <span style="color:#ff79c6">import</span> function_name
+</span></span></code></pre></div><p><strong>导入所有模块中的指定成员:</strong> 你可以使用 from &hellip; import * 语法从模块中导入所有指定成员。在这种情况下，包中需要定义 <code>__all__</code> 变量来指定允许导入的成员列表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> my_package.module1 <span style="color:#ff79c6">import</span> <span style="color:#ff79c6">*</span>
+</span></span></code></pre></div><p><strong>相对导入:</strong> 相对导入允许你从当前包中导入其他模块，使用 . 来表示相对路径</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> . <span style="color:#ff79c6">import</span> module1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> .module1 <span style="color:#ff79c6">import</span> function_name
+</span></span></code></pre></div><h3 id="3包中特殊文件__init__py">3.包中特殊文件__init__.py</h3>
+<p><strong>定义:</strong> <code>__init__.py</code> 是Python包中的一个特殊文件，用于指示解释器该目录是一个包，并且可以包含一些包的初始化代码。该文件通常位于包目录的顶层，但也可以存在于子包中。<code>__init__.py</code> 的存在告诉Python解释器该目录应该被视为一个包，并且可以包含其他模块文件。</p>
+<p><strong>作用:</strong></p>
+<ul>
+<li><strong>指示包目录:</strong> <code>__init__.py</code> 的存在告诉Python解释器该目录是一个包，而不仅仅是一个普通的目录</li>
+<li><strong>包的初始化:</strong> 可以在 <code>__init__.py</code> 文件中执行包的初始化操作，例如导入模块、定义变量或函数等</li>
+<li><strong>控制导入行为:</strong> 可以通过在 <code>__init__.py</code> 文件中定义 <code>__all__</code> 变量来控制使用 <code>from package import *</code>语句导入时的行为。</li>
+</ul>
+<p><strong>demo:</strong> 假设我们有一个名为 my_package 的包，它包含了两个模块 module1.py 和 module2.py</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>my_package/
+</span></span><span style="display:flex;"><span>    __init__.py
+</span></span><span style="display:flex;"><span>    module1.py
+</span></span><span style="display:flex;"><span>    module2.py
+</span></span></code></pre></div><p><code>__init__.py</code> 文件可以是一个空文件，也可以包含一些初始化代码，例如导入模块：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4"># my_package/__init__.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> . <span style="color:#ff79c6">import</span> module1
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">from</span> . <span style="color:#ff79c6">import</span> module2
+</span></span></code></pre></div><p>在这个示例中，<code>__init__.py</code> 文件导入了 module1 和 module2 模块，因此当你导入 <code>my_package</code> 包时，这两个模块也会被导入</p>
+<h3 id="4制作可以发布的包">4.制作可以发布的包</h3>
+<p>要制作可以发布的Python包，你可以遵循以下步骤：</p>
+<ul>
+<li>
+<p><strong>准备要发布的代码:</strong> 确保你的Python代码已经编写完成，并且经过了测试和调试。这些代码可以包含你编写的模块、函数、类等。</p>
+</li>
+<li>
+<p><strong>创建包结构:</strong> 创建一个用于存放你的Python代码的目录，并为你的包选择一个唯一的名称。在这个目录中，你可以包含一个或多个Python模块文件，以及一个 setup.py 文件。</p>
+</li>
+<li>
+<p><strong>编写 setup.py 文件:</strong> setup.py 文件是一个用于描述你的Python包的元数据和安装信息的Python脚本。在 setup.py 文件中，你需要提供一些必要的信息，例如包的名称、版本、作者、描述等。你还需要指定哪些文件应该包含在安装包中，以及依赖项信息等。</p>
+</li>
+<li>
+<p><strong>构建包:</strong> 使用 setuptools 或 distutils 库中的工具来构建你的包。通常情况下，你可以使用 setup.py 脚本中提供的 setup() 函数来构建和打包你的包。这个步骤将生成一个安装包，其中包含了你的Python代码以及其他必要的文件。</p>
+</li>
+<li>
+<p><strong>测试你的包:</strong> 在发布之前，确保你的包可以正常工作，并且没有任何错误或问题。可以在不同的Python环境中进行测试，以确保你的包在各种环境下都能正常运行。</p>
+</li>
+<li>
+<p><strong>发布你的包:</strong> 一旦你确认你的包可以正常工作，并且已经准备好发布，你可以选择一个合适的平台来发布你的包。你可以将包发布到Python Package Index (PyPI) 或者其他第三方包管理平台。在发布之前，确保你遵循了发布平台的规定，并且提供了必要的文档和元数据。</p>
+</li>
+</ul>
+<p><strong>setup.py文件内容:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff79c6">from</span> setuptools <span style="color:#ff79c6">import</span> setup, find_packages
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>setup(
+</span></span><span style="display:flex;"><span>    name<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>,  <span style="color:#6272a4"># 包名</span>
+</span></span><span style="display:flex;"><span>    version<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>,  <span style="color:#6272a4"># 版本</span>
+</span></span><span style="display:flex;"><span>    author<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>,  <span style="color:#6272a4"># 作者</span>
+</span></span><span style="display:flex;"><span>    author_email<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>,  <span style="color:#6272a4"># 作者邮箱</span>
+</span></span><span style="display:flex;"><span>    description<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>,  <span style="color:#6272a4"># 包的描述</span>
+</span></span><span style="display:flex;"><span>    packages<span style="color:#ff79c6">=</span>find_packages(),  <span style="color:#6272a4"># 函数用于自动查找包含在包中的所有模块和子包</span>
+</span></span><span style="display:flex;"><span>    install_requires<span style="color:#ff79c6">=</span>[],  <span style="color:#6272a4"># 列表指定了安装该包所需的依赖项</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>编写了 <code>setup.py</code> 文件后，你可以通过执行 <code>python setup.py</code> 命令来执行各种操作，例如构建、打包、安装和分发你的包。常见的操作包括：</p>
+<ul>
+<li><strong>python setup.py sdist:</strong> 生成源码分发包。</li>
+<li><strong>python setup.py bdist_wheel:</strong> 生成Wheel二进制分发包。</li>
+<li><strong>python setup.py install:</strong> 安装包到系统中。</li>
+<li><strong>python setup.py upload:</strong> 上传包到PyPI（Python Package Index）等。</li>
+</ul>
+
+
+                
+
+                
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/PythonBase/48/" data-toggle="tooltip" data-placement="top" title="Python异常">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/PythonAdvance/1/" data-toggle="tooltip" data-placement="top" title="Python高级提升代码技巧">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/datatypes" title="datatypes">
+                            datatypes
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonbase" title="pythonbase">
+                            pythonbase
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/pythonfuntion" title="pythonfuntion">
+                            pythonfuntion
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/pythonoop" title="pythonoop">
+                            pythonoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    <li>
+                        <a href="mailto:ahwt.ll@qq.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		           
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AH-Toby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		            
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://gitee.com/toywang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-git fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Toby Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fas fa-circle fa-stack-2x"></i>
+                               <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+            
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Toby Blog 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -13,7 +13,7 @@
       <link>http://localhost:1313/PythonBase/47/</link>
       <pubDate>Sun, 14 Jun 2020 22:57:00 +0000</pubDate>
       <guid>http://localhost:1313/PythonBase/47/</guid>
-      <description>一.__new__方法</description>
+      <description>一.__new__方法 概念: __new__() 方法是 Python 中用于创建对象实例的特殊方法之一。与 __init__() 方法不同，__new__() 方法是在对象实例化之前被调用的，用于</description>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Poetry on Toby Blog</title>
+    <link>http://localhost:1313/categories/poetry/</link>
+    <description>Recent content in Poetry on Toby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en_us</language>
+    <lastBuildDate>Tue, 04 Jul 2023 19:30:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/poetry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Poetry中文翻译(一)</title>
+      <link>http://localhost:1313/PoetryCn/1/</link>
+      <pubDate>Tue, 04 Jul 2023 19:30:00 +0000</pubDate>
+      <guid>http://localhost:1313/PoetryCn/1/</guid>
+      <description>Poetry是Python中用于管理依赖和打包的工具，支持您声明项目所需的库并负责管理其安装和更新。它提供锁定文件用于构建版本和发布项目以确</description>
+    </item>
+  </channel>
+</rss>
